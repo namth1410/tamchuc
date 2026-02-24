@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Car, Ticket, Anchor, Utensils, Castle, Mountain, SunMedium, Home } from 'lucide-react';
+import { WavyText } from './ui/WavyText';
+import { ScrollReveal } from './ui/ScrollReveal';
 
 const timelineData = [
     {
@@ -89,11 +91,9 @@ const TimelineCard = ({ item, index }: { item: any; index: number }) => {
     const isEven = index % 2 === 0;
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 50, x: isEven ? -30 : 30 }}
-            whileInView={{ opacity: 1, y: 0, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, type: "spring", bounce: 0.4 }}
+        <ScrollReveal
+            yOffset={50}
+            xOffset={isEven ? -30 : 30}
             className={`relative flex items-center justify-between md:justify-normal w-full mb-12 md:mb-20 ${isEven ? 'md:flex-row-reverse' : ''}`}
         >
             {/* Connector Line (Desktop) */}
@@ -134,7 +134,7 @@ const TimelineCard = ({ item, index }: { item: any; index: number }) => {
                     </p>
                 </div>
             </div>
-        </motion.div>
+        </ScrollReveal>
     );
 };
 
@@ -156,15 +156,11 @@ const Timeline = () => {
                     >
                         Hành Trình Chi Tiết
                     </motion.div>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
+                    <WavyText
+                        text="Trục Thời Gian"
+                        delay={0.1}
                         className="text-4xl sm:text-5xl md:text-6xl font-black text-forest-900 mb-4 md:mb-6 tracking-tight"
-                    >
-                        Trục Thời Gian
-                    </motion.h2>
+                    />
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { SpotlightCard } from './ui/SpotlightCard';
 
 const teamMembers = [
     { name: 'Hiếu', role: 'Trưởng Ban Tổ Chức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Hieu12&backgroundColor=b6e3f4', color: 'from-blue-400 to-cyan-300' },
@@ -75,7 +76,7 @@ const TeamBoard = () => {
                     viewport={{ once: true, margin: "-50px" }}
                 >
                     {teamMembers.map((member) => (
-                        <motion.div
+                        <SpotlightCard
                             key={member.name}
                             variants={cardVariants}
                             whileHover={{
@@ -111,7 +112,7 @@ const TeamBoard = () => {
                             <p className="text-slate-500 text-sm md:text-base leading-relaxed px-2 font-medium">
                                 "{member.description}"
                             </p>
-                        </motion.div>
+                        </SpotlightCard>
                     ))}
                 </motion.div>
             </div>

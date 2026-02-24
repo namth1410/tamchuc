@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { BlurText } from './ui/BlurText';
 import { MapPin, Calendar, Clock, ChevronDown } from 'lucide-react';
 
 const Hero = () => {
@@ -91,17 +92,12 @@ const Hero = () => {
                         ✨ Chuyến Đi Chữa Lành ✨
                     </motion.div>
 
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-6 md:mb-8 leading-[1.1]"
-                    >
-                        Đại Hội Võ Lâm <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest-300 via-forest-100 to-gold-300 drop-shadow-lg">
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-6 md:mb-8 leading-[1.1]">
+                        <BlurText delay={0.3}>Đại Hội Võ Lâm</BlurText> <br className="hidden md:block" />
+                        <BlurText delay={0.5} className="text-transparent bg-clip-text bg-gradient-to-r from-forest-300 via-forest-100 to-gold-300 drop-shadow-lg">
                             Tam Chúc
-                        </span>
-                    </motion.h1>
+                        </BlurText>
+                    </h1>
 
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}

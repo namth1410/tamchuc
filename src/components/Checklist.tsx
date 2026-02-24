@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown, Sparkles } from 'lucide-react';
+import { AnimatedCheckbox } from './ui/AnimatedCheckbox';
 
 const checklistItems = [
     { id: 1, text: 'Trang phục lịch sự (quần/váy dài quá gối).' },
@@ -106,11 +107,12 @@ const Checklist = () => {
                                             {/* Hover highlight background */}
                                             <div className="absolute inset-0 bg-gradient-to-r from-forest-50 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
-                                            <div className={`mt-0.5 relative z-10 flex-shrink-0 w-6 h-6 md:w-8 md:h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 shadow-sm ${isChecked
-                                                ? 'bg-gradient-to-br from-forest-400 to-forest-600 border-forest-500 scale-110 shadow-forest-500/30 text-white'
-                                                : 'border-slate-200 text-transparent bg-slate-50 group-hover/item:border-forest-300'
-                                                }`}>
-                                                <Check size={16} strokeWidth={isChecked ? 3 : 2} className={isChecked ? "opacity-100" : "opacity-0"} />
+                                            <div className="mt-0.5 relative z-10 flex-shrink-0 w-6 h-6 md:w-8 md:h-8 pointer-events-none">
+                                                <AnimatedCheckbox
+                                                    checked={isChecked}
+                                                    onChange={() => { }}
+                                                    className="w-full h-full !rounded-full"
+                                                />
                                             </div>
 
                                             <span className={`relative z-10 text-slate-700 font-medium text-sm md:text-base leading-snug md:leading-relaxed transition-all duration-500 ${isChecked ? 'line-through decoration-forest-300 text-slate-400' : 'group-hover/item:text-slate-900'
