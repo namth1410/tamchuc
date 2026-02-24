@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { BlurText } from './ui/BlurText';
 import { Aurora } from './ui/Aurora';
 import { GhostCursor } from './ui/GhostCursor';
+import { GlitchText } from './ui/GlitchText';
 import { MapPin, Calendar, Clock, ChevronDown } from 'lucide-react';
 
 const Hero = () => {
@@ -85,9 +86,7 @@ const Hero = () => {
 
                     <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-6 md:mb-8 leading-[1.1]">
                         <BlurText delay={0.3}>Đại Hội Võ Lâm</BlurText> <br className="hidden md:block" />
-                        <BlurText delay={0.5} className="text-transparent bg-clip-text bg-gradient-to-r from-forest-300 via-forest-100 to-gold-300 drop-shadow-lg">
-                            Tam Chúc
-                        </BlurText>
+                        <GlitchText speed={1.5} className="text-transparent bg-clip-text bg-gradient-to-r from-forest-300 via-forest-100 to-gold-300 drop-shadow-lg" text="Tam Chúc" />
                     </h1>
 
                     <motion.div
