@@ -3,15 +3,14 @@ import { SpotlightCard } from './ui/SpotlightCard';
 import { Tilt } from './ui/Tilt';
 
 const teamMembers = [
-    { name: 'Hiếu', role: 'Trưởng Ban Tổ Cchức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Hieu12&backgroundColor=b6e3f4', color: 'from-blue-400 to-cyan-300', span: 'md:col-span-2 md:row-span-2' },
-    { name: 'Dung', role: 'Kế Toán Kiêm Thủ Quỹ', description: 'Tay hòm chìa khóa. Thích thu tiền hơn đi chơi.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Dung123&backgroundColor=c0aede', color: 'from-purple-400 to-pink-300', span: 'md:col-span-1 md:row-span-1' },
-    { name: 'Nam', role: 'Camera Man', description: 'Hy sinh thanh xuân để anh em có ảnh Facebook.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Nam&backgroundColor=ffdfbf', color: 'from-orange-400 to-amber-300', span: 'md:col-span-1 md:row-span-1' },
-    { name: 'Dũng', role: 'Thánh Phá Mồi', description: 'Đi chùa là phụ, ăn trưa là chính.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Dung456&backgroundColor=d1d4f9', color: 'from-indigo-400 to-blue-300', span: 'md:col-span-1 md:row-span-2' },
-    { name: 'Tân', role: 'Đội Trưởng Hậu Cần', description: 'Vác balo nặng nhất đoàn, bao gồm nước và đồ ăn vặt.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Tan&backgroundColor=ffd5dc', color: 'from-rose-400 to-red-300', span: 'md:col-span-2 md:row-span-1' },
-    { name: 'Tuyển', role: 'Bậc Thầy Giao Tiếp', description: 'Trò chuyện với sư thầy, cò vé tàu các kiểu.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Tuyen&backgroundColor=b6e3f4', color: 'from-cyan-400 to-teal-300', span: 'md:col-span-1 md:row-span-1' },
-    { name: 'Tâm', role: 'Nhà Bảo Hành Tâm Linh', description: 'Chăm đi lễ sớm, xin quẻ bói siêu chuẩn.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Tam789&backgroundColor=c0aede', color: 'from-violet-400 to-purple-300', span: 'md:col-span-1 md:row-span-1' },
-    { name: 'Quyết', role: 'Chúa Tể Cao Su', description: 'Tập trung 07:50 nhưng 08:00 mới ngủ dậy.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Quyet&backgroundColor=ffdfbf', color: 'from-yellow-400 to-orange-300', span: 'md:col-span-1 md:row-span-1' },
-    { name: 'Mai Anh', role: 'Nữ Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=MaiAnh22&backgroundColor=ffd5dc', color: 'from-pink-400 to-rose-300', span: 'md:col-span-2 md:row-span-1' },
+    { name: 'Hiếu', role: 'Trưởng Ban Tổ Cchức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: '/Hiếu.png', color: 'from-blue-400 to-cyan-300', span: 'md:col-span-2 md:row-span-2' },
+    { name: 'Dung', role: 'Kế Toán Kiêm Thủ Quỹ', description: 'Tay hòm chìa khóa. Thích thu tiền hơn đi chơi.', avatar: '/Dung.png', color: 'from-purple-400 to-pink-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Dũng', role: 'Thánh Phá Mồi', description: 'Đi chùa là phụ, ăn trưa là chính.', avatar: '/Dũng.png', color: 'from-indigo-400 to-blue-300', span: 'md:col-span-1 md:row-span-2' },
+    { name: 'Tân', role: 'Đội Trưởng Hậu Cần', description: 'Vác balo nặng nhất đoàn, bao gồm nước và đồ ăn vặt.', avatar: '/Tân.png', color: 'from-rose-400 to-red-300', span: 'md:col-span-2 md:row-span-1' },
+    { name: 'Tuyển', role: 'Bậc Thầy Giao Tiếp', description: 'Trò chuyện với sư thầy, cò vé tàu các kiểu.', avatar: '/Tuyển.png', color: 'from-cyan-400 to-teal-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Tâm', role: 'Nhà Bảo Hành Tâm Linh', description: 'Chăm đi lễ sớm, xin quẻ bói siêu chuẩn.', avatar: '/Tâm.png', color: 'from-violet-400 to-purple-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Quyết', role: 'Chúa Tể Cao Su', description: 'Tập trung 07:50 nhưng 08:00 mới ngủ dậy.', avatar: '/Quyết.png', color: 'from-yellow-400 to-orange-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Mai Anh', role: 'Nữ Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: '/Mai Anh.png', color: 'from-pink-400 to-rose-300', span: 'md:col-span-3 md:row-span-1' },
 ];
 
 const containerVariants = {
@@ -65,7 +64,7 @@ const TeamBoard = () => {
                         transition={{ delay: 0.2 }}
                         className="text-slate-500 text-base md:text-lg max-w-2xl mx-auto px-4 font-medium leading-relaxed"
                     >
-                        9 gương mặt vàng trong làng phá đò... à nhầm, đi chùa Tam Chúc. Mỗi người một vẻ, mười phân vẹn mười điểm tấu hài.
+                        8 gương mặt vàng trong làng phá đò... à nhầm, đi chùa Tam Chúc. Mỗi người một vẻ, mười phân vẹn mười điểm tấu hài.
                     </motion.p>
                 </div>
 

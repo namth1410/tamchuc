@@ -12,7 +12,7 @@ export const ShinyText = ({ text, disabled = false, speed = 3, className = '' }:
             style={{
                 backgroundImage: 'linear-gradient(120deg, transparent 40%, rgba(255, 255, 255, 0.8) 50%, transparent 60%)',
                 backgroundColor: 'currentColor',
-                backgroundSize: '200% 100%',
+                backgroundSize: '400% 100%',
                 WebkitBackgroundClip: 'text',
                 animationDuration: `${speed}s`,
             }}
