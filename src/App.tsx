@@ -3,10 +3,14 @@ import Hero from './components/Hero';
 import Timeline from './components/Timeline';
 import TeamBoard from './components/TeamBoard';
 import Checklist from './components/Checklist';
+import { GradualBlur } from './components/ui/GradualBlur';
 
 function App() {
   return (
-    <div className="min-h-screen bg-forest-50 overflow-hidden font-sans">
+    <div className="min-h-screen bg-forest-50 overflow-hidden font-sans relative">
+      <GradualBlur position="top" className="fixed top-0 left-0 w-full h-24 z-[100] pointer-events-none" blurAmount="10px" fadeEnd={100} />
+      <GradualBlur position="bottom" className="fixed bottom-0 left-0 w-full h-32 z-[100] pointer-events-none" blurAmount="16px" fadeEnd={100} />
+
       <Hero />
       <Timeline />
       <TeamBoard />

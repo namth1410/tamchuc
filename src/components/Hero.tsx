@@ -4,7 +4,7 @@ import { BlurText } from './ui/BlurText';
 import { Aurora } from './ui/Aurora';
 import { GhostCursor } from './ui/GhostCursor';
 import { GlitchText } from './ui/GlitchText';
-import { GradualBlur } from './ui/GradualBlur';
+import { ShinyText } from './ui/ShinyText';
 import { MapPin, Calendar, Clock } from 'lucide-react';
 
 const Hero = () => {
@@ -66,10 +66,6 @@ const Hero = () => {
             {/* Aurora Background Effect */}
             <Aurora colorStops={["#22c55e", "#eab308", "#14532d"]} speed={0.8} />
 
-            {/* Cinematic Gradual Blur */}
-            <GradualBlur position="top" className="h-32 w-full top-0" blurAmount="10px" fadeEnd={100} />
-            <GradualBlur position="bottom" className="h-48 w-full bottom-0" blurAmount="16px" fadeEnd={100} />
-
             <div className="container relative z-10 px-4 mx-auto text-center flex flex-col items-center justify-center h-full">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
@@ -86,7 +82,7 @@ const Hero = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="inline-block bg-gradient-to-r from-gold-500/20 to-gold-600/20 text-gold-400 font-bold px-4 py-1.5 md:px-5 md:py-2 rounded-full text-xs md:text-sm tracking-[0.2em] uppercase mb-6 border border-gold-500/30 shadow-[0_0_15px_rgba(234,179,8,0.2)] backdrop-blur-md"
                     >
-                        ✨ Chuyến Đi Chữa Lành ✨
+                        <ShinyText text="✨ Chuyến Đi Chữa Lành ✨" speed={3} />
                     </motion.div>
 
                     <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-6 md:mb-8 leading-[1.1]">
@@ -150,7 +146,7 @@ const Hero = () => {
                             document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' });
                         }} className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm md:text-lg font-medium text-white rounded-full group bg-gradient-to-br from-forest-400 to-forest-600 group-hover:from-forest-400 group-hover:to-forest-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-forest-200 dark:focus:ring-forest-800 shadow-[0_10px_40px_-10px_rgba(34,197,94,0.5)] transition-all hover:scale-105 hover:shadow-[0_10px_40px_-5px_rgba(34,197,94,0.7)] w-full sm:w-auto">
                             <span className="relative px-8 py-4 transition-all ease-in duration-75 bg-forest-900/20 backdrop-blur-sm rounded-full group-hover:bg-opacity-0 font-bold tracking-wide flex items-center gap-2">
-                                Khám Phá Lộ Trình
+                                <ShinyText text="Khám Phá Lộ Trình" speed={2} className="text-white drop-shadow-sm" />
                             </span>
                         </button>
                     </motion.div>
