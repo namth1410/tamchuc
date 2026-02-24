@@ -1,5 +1,3 @@
-
-
 interface GlitchTextProps {
     text: string;
     className?: string;
@@ -12,26 +10,24 @@ export const GlitchText = ({ text, className = '', speed = 1 }: GlitchTextProps)
             {/* Base Text */}
             <span className={`relative inline-block z-10 ${className}`}>{text}</span>
 
-            {/* Glitch Layer 1 (Cyan) */}
+            {/* Glitch Layer 1 */}
             <span
-                className="absolute top-0 left-[-2px] z-0 opacity-80 animate-glitch-1 pointer-events-none"
+                className={`absolute top-0 left-0 z-20 opacity-90 animate-glitch-1 pointer-events-none ${className}`}
                 style={{
                     animationDuration: `${2 / speed}s`,
-                    color: '#00fff9',
-                    clipPath: 'polygon(0 0, 100% 0, 100% 45%, 0 45%)'
+                    filter: 'hue-rotate(-90deg) drop-shadow(0 0 4px rgba(0,255,255,0.4))'
                 }}
                 aria-hidden="true"
             >
                 {text}
             </span>
 
-            {/* Glitch Layer 2 (Magenta) */}
+            {/* Glitch Layer 2 */}
             <span
-                className="absolute top-0 left-[2px] z-0 opacity-80 animate-glitch-2 pointer-events-none"
+                className={`absolute top-0 left-0 z-20 opacity-90 animate-glitch-2 pointer-events-none ${className}`}
                 style={{
                     animationDuration: `${3 / speed}s`,
-                    color: '#ff00c1',
-                    clipPath: 'polygon(0 55%, 100% 55%, 100% 100%, 0 100%)'
+                    filter: 'hue-rotate(90deg) drop-shadow(0 0 4px rgba(255,0,255,0.4))'
                 }}
                 aria-hidden="true"
             >
@@ -40,21 +36,31 @@ export const GlitchText = ({ text, className = '', speed = 1 }: GlitchTextProps)
 
             <style>{`
         @keyframes glitch-1 {
-          0% { clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); transform: translate(-2px, 2px); }
-          20% { clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%); transform: translate(2px, -2px); }
-          40% { clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); transform: translate(2px, 2px); }
-          60% { clip-path: polygon(0 1%, 100% 1%, 100% 2%, 0 2%); transform: translate(-2px, -2px); }
-          80% { clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%); transform: translate(-2px, 2px); }
-          100% { clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%); transform: translate(2px, -2px); }
+          0% { clip-path: inset(20% 0 80% 0); transform: translate(-4px, 1px); }
+          10% { clip-path: inset(10% 0 60% 0); transform: translate(4px, -1px); }
+          20% { clip-path: inset(80% 0 5% 0); transform: translate(-4px, -2px); }
+          30% { clip-path: inset(40% 0 50% 0); transform: translate(4px, 2px); }
+          40% { clip-path: inset(60% 0 20% 0); transform: translate(-4px, 1px); }
+          50% { clip-path: inset(15% 0 80% 0); transform: translate(4px, -1px); }
+          60% { clip-path: inset(70% 0 10% 0); transform: translate(-4px, 2px); }
+          70% { clip-path: inset(5% 0 70% 0); transform: translate(4px, -2px); }
+          80% { clip-path: inset(50% 0 30% 0); transform: translate(-4px, 1px); }
+          90% { clip-path: inset(30% 0 40% 0); transform: translate(4px, -1px); }
+          100% { clip-path: inset(20% 0 50% 0); transform: translate(-4px, 2px); }
         }
         
         @keyframes glitch-2 {
-          0% { clip-path: polygon(0 25%, 100% 25%, 100% 30%, 0 30%); transform: translate(2px, -2px); }
-          20% { clip-path: polygon(0 3%, 100% 3%, 100% 3%, 0 3%); transform: translate(-2px, 2px); }
-          40% { clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%); transform: translate(2px, 2px); }
-          60% { clip-path: polygon(0 15%, 100% 15%, 100% 20%, 0 20%); transform: translate(-2px, -2px); }
-          80% { clip-path: polygon(0 2%, 100% 2%, 100% 2%, 0 2%); transform: translate(-2px, 2px); }
-          100% { clip-path: polygon(0 25%, 100% 25%, 100% 30%, 0 30%); transform: translate(2px, -2px); }
+          0% { clip-path: inset(10% 0 60% 0); transform: translate(4px, -1px); }
+          10% { clip-path: inset(30% 0 20% 0); transform: translate(-4px, 2px); }
+          20% { clip-path: inset(70% 0 10% 0); transform: translate(4px, 1px); }
+          30% { clip-path: inset(20% 0 50% 0); transform: translate(-4px, -2px); }
+          40% { clip-path: inset(50% 0 30% 0); transform: translate(4px, 2px); }
+          50% { clip-path: inset(5% 0 80% 0); transform: translate(-4px, -1px); }
+          60% { clip-path: inset(40% 0 20% 0); transform: translate(4px, 1px); }
+          70% { clip-path: inset(80% 0 10% 0); transform: translate(-4px, 2px); }
+          80% { clip-path: inset(10% 0 50% 0); transform: translate(4px, -1px); }
+          90% { clip-path: inset(60% 0 30% 0); transform: translate(-4px, 2px); }
+          100% { clip-path: inset(20% 0 60% 0); transform: translate(4px, -2px); }
         }
         
         .animate-glitch-1 {
