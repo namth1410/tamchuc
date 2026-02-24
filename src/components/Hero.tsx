@@ -99,7 +99,7 @@ const Hero = () => {
                     >
                         Đại Hội Võ Lâm <br className="hidden md:block" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-forest-300 via-forest-100 to-gold-300 drop-shadow-lg">
-                            Tam Chúc Group 9
+                            Tam Chúc
                         </span>
                     </motion.h1>
 
