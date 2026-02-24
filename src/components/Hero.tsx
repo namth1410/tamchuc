@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BlurText } from './ui/BlurText';
+import { Aurora } from './ui/Aurora';
 import { MapPin, Calendar, Clock, ChevronDown } from 'lucide-react';
 
 const Hero = () => {
@@ -58,20 +59,8 @@ const Hero = () => {
 
     return (
         <section className="relative min-h-[100svh] flex items-center justify-center pt-16 pb-12 overflow-hidden bg-forest-900">
-            {/* Background Image with Overlay */}
-            <div
-                className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-transform duration-[20s] ease-linear hover:scale-110"
-                style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1599553761793-7934dcdafd74?q=80&w=2070&auto=format&fit=crop")',
-                }}
-            >
-                <div className="absolute inset-0 bg-gradient-to-t from-forest-900 via-forest-900/80 to-forest-900/40 backdrop-blur-[2px]"></div>
-            </div>
-
-            {/* Floating Orbs for "Wow" Effect */}
-            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-forest-400 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob"></div>
-            <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-gold-400 rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-blob animation-delay-2000"></div>
-            <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-forest-300 rounded-full mix-blend-screen filter blur-[120px] opacity-20 animate-blob animation-delay-4000"></div>
+            {/* Aurora Background Effect */}
+            <Aurora colorStops={["#22c55e", "#eab308", "#14532d"]} speed={0.8} />
 
             <div className="container relative z-10 px-4 mx-auto text-center flex flex-col items-center justify-center h-full">
                 <motion.div

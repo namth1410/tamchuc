@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Sparkles } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import { AnimatedCheckbox } from './ui/AnimatedCheckbox';
+import { BlurText } from './ui/BlurText';
 
 const checklistItems = [
     { id: 1, text: 'Trang phục lịch sự (quần/váy dài quá gối).' },
@@ -42,6 +44,18 @@ const Checklist = () => {
             setCheckedItems([...checkedItems, id]);
         }
     };
+
+    useEffect(() => {
+        if (checkedItems.length === checklistItems.length && checklistItems.length > 0) {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#22c55e', '#eab308', '#ffffff'],
+                zIndex: 100
+            });
+        }
+    }, [checkedItems.length]);
 
     return (
         <section className="py-20 md:py-32 bg-forest-50 relative overflow-hidden" id="checklist">
@@ -180,7 +194,9 @@ const Checklist = () => {
                                                 >
                                                     <div className="px-6 md:px-8 pb-6 md:pb-8 text-slate-600 text-sm md:text-base leading-relaxed font-medium bg-gradient-to-b from-transparent to-forest-50/30">
                                                         <div className="w-12 h-1 bg-gradient-to-r from-forest-300 to-gold-300 rounded-full mb-4 opacity-50"></div>
-                                                        {faq.answer}
+                                                        <BlurText delay={0.05} className="inline-block">
+                                                            {faq.answer}
+                                                        </BlurText>
                                                     </div>
                                                 </motion.div>
                                             )}

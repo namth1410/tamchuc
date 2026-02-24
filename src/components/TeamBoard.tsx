@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { SpotlightCard } from './ui/SpotlightCard';
+import { Tilt } from './ui/Tilt';
 
 const teamMembers = [
     { name: 'Hiếu', role: 'Trưởng Ban Tổ Chức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Hieu12&backgroundColor=b6e3f4', color: 'from-blue-400 to-cyan-300' },
@@ -76,43 +77,44 @@ const TeamBoard = () => {
                     viewport={{ once: true, margin: "-50px" }}
                 >
                     {teamMembers.map((member) => (
-                        <SpotlightCard
-                            key={member.name}
-                            variants={cardVariants}
-                            whileHover={{
-                                y: -12,
-                                scale: 1.02,
-                                transition: { type: "spring", stiffness: 300, damping: 20 }
-                            }}
-                            className="group bg-white rounded-[2rem] p-6 md:p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-forest-100 transition-all duration-300 text-center flex flex-col items-center relative overflow-hidden"
-                        >
-                            {/* Card glow effect */}
-                            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${member.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-bl-full pointer-events-none`}></div>
+                        <Tilt key={member.name} rotationFactor={8} isReverse>
+                            <SpotlightCard
+                                variants={cardVariants}
+                                whileHover={{
+                                    y: -12,
+                                    scale: 1.02,
+                                    transition: { type: "spring", stiffness: 300, damping: 20 }
+                                }}
+                                className="group bg-white rounded-[2rem] p-6 md:p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-forest-100 transition-all duration-300 text-center flex flex-col items-center relative overflow-hidden"
+                            >
+                                {/* Card glow effect */}
+                                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${member.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-bl-full pointer-events-none`}></div>
 
-                            <div className="relative mb-6 group-hover:scale-110 transition-transform duration-500">
-                                {/* Avatar glow */}
-                                <div className={`absolute inset-0 bg-gradient-to-tr ${member.color} rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-300`}></div>
+                                <div className="relative mb-6 group-hover:scale-110 transition-transform duration-500">
+                                    {/* Avatar glow */}
+                                    <div className={`absolute inset-0 bg-gradient-to-tr ${member.color} rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-300`}></div>
 
-                                <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white z-10">
-                                    <img
-                                        src={member.avatar}
-                                        alt={member.name}
-                                        className="w-full h-full object-cover transform group-hover:rotate-6 transition-transform duration-500"
-                                    />
+                                    <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white z-10">
+                                        <img
+                                            src={member.avatar}
+                                            alt={member.name}
+                                            className="w-full h-full object-cover transform group-hover:rotate-6 transition-transform duration-500"
+                                        />
+                                    </div>
+                                    <div className={`absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br ${member.color} border-4 border-white shadow-sm z-20`}></div>
                                 </div>
-                                <div className={`absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br ${member.color} border-4 border-white shadow-sm z-20`}></div>
-                            </div>
 
-                            <h3 className="text-xl md:text-2xl font-black text-slate-800 mb-2 font-display">{member.name}</h3>
+                                <h3 className="text-xl md:text-2xl font-black text-slate-800 mb-2 font-display">{member.name}</h3>
 
-                            <div className={`text-xs font-bold uppercase tracking-[0.15em] text-white bg-gradient-to-r ${member.color} px-4 py-1.5 rounded-full mb-4 shadow-sm group-hover:shadow-md transition-all`}>
-                                {member.role}
-                            </div>
+                                <div className={`text-xs font-bold uppercase tracking-[0.15em] text-white bg-gradient-to-r ${member.color} px-4 py-1.5 rounded-full mb-4 shadow-sm group-hover:shadow-md transition-all`}>
+                                    {member.role}
+                                </div>
 
-                            <p className="text-slate-500 text-sm md:text-base leading-relaxed px-2 font-medium">
-                                "{member.description}"
-                            </p>
-                        </SpotlightCard>
+                                <p className="text-slate-500 text-sm md:text-base leading-relaxed px-2 font-medium">
+                                    "{member.description}"
+                                </p>
+                            </SpotlightCard>
+                        </Tilt>
                     ))}
                 </motion.div>
             </div>
