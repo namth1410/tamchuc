@@ -4,6 +4,7 @@ import { BlurText } from './ui/BlurText';
 import { Aurora } from './ui/Aurora';
 import { GhostCursor } from './ui/GhostCursor';
 import { GlitchText } from './ui/GlitchText';
+import { GradualBlur } from './ui/GradualBlur';
 import { MapPin, Calendar, Clock } from 'lucide-react';
 
 const Hero = () => {
@@ -64,6 +65,10 @@ const Hero = () => {
             <GhostCursor />
             {/* Aurora Background Effect */}
             <Aurora colorStops={["#22c55e", "#eab308", "#14532d"]} speed={0.8} />
+
+            {/* Cinematic Gradual Blur */}
+            <GradualBlur position="top" className="h-32 w-full top-0" blurAmount="10px" fadeEnd={100} />
+            <GradualBlur position="bottom" className="h-48 w-full bottom-0" blurAmount="16px" fadeEnd={100} />
 
             <div className="container relative z-10 px-4 mx-auto text-center flex flex-col items-center justify-center h-full">
                 <motion.div
