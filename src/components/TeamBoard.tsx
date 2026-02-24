@@ -3,15 +3,15 @@ import { SpotlightCard } from './ui/SpotlightCard';
 import { Tilt } from './ui/Tilt';
 
 const teamMembers = [
-    { name: 'Hiếu', role: 'Trưởng Ban Tổ Chức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Hieu12&backgroundColor=b6e3f4', color: 'from-blue-400 to-cyan-300' },
-    { name: 'Dung', role: 'Kế Toán Kiêm Thủ Quỹ', description: 'Tay hòm chìa khóa. Thích thu tiền hơn đi chơi.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Dung123&backgroundColor=c0aede', color: 'from-purple-400 to-pink-300' },
-    { name: 'Nam', role: 'Camera Man', description: 'Hy sinh thanh xuân để anh em có ảnh Facebook.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Nam&backgroundColor=ffdfbf', color: 'from-orange-400 to-amber-300' },
-    { name: 'Dũng', role: 'Thánh Phá Mồi', description: 'Đi chùa là phụ, ăn trưa là chính.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Dung456&backgroundColor=d1d4f9', color: 'from-indigo-400 to-blue-300' },
-    { name: 'Tân', role: 'Đội Trưởng Hậu Cần', description: 'Vác balo nặng nhất đoàn, bao gồm nước và đồ ăn vặt.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Tan&backgroundColor=ffd5dc', color: 'from-rose-400 to-red-300' },
-    { name: 'Tuyển', role: 'Bậc Thầy Giao Tiếp', description: 'Trò chuyện với sư thầy, cò vé tàu các kiểu.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Tuyen&backgroundColor=b6e3f4', color: 'from-cyan-400 to-teal-300' },
-    { name: 'Tâm', role: 'Nhà Bảo Hành Tâm Linh', description: 'Chăm đi lễ sớm, xin quẻ bói siêu chuẩn.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Tam789&backgroundColor=c0aede', color: 'from-violet-400 to-purple-300' },
-    { name: 'Quyết', role: 'Chúa Tể Cao Su', description: 'Tập trung 07:50 nhưng 08:00 mới ngủ dậy.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Quyet&backgroundColor=ffdfbf', color: 'from-yellow-400 to-orange-300' },
-    { name: 'Mai Anh', role: 'Nữ Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=MaiAnh22&backgroundColor=ffd5dc', color: 'from-pink-400 to-rose-300' },
+    { name: 'Hiếu', role: 'Trưởng Ban Tổ Cchức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Hieu12&backgroundColor=b6e3f4', color: 'from-blue-400 to-cyan-300', span: 'md:col-span-2 md:row-span-2' },
+    { name: 'Dung', role: 'Kế Toán Kiêm Thủ Quỹ', description: 'Tay hòm chìa khóa. Thích thu tiền hơn đi chơi.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Dung123&backgroundColor=c0aede', color: 'from-purple-400 to-pink-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Nam', role: 'Camera Man', description: 'Hy sinh thanh xuân để anh em có ảnh Facebook.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Nam&backgroundColor=ffdfbf', color: 'from-orange-400 to-amber-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Dũng', role: 'Thánh Phá Mồi', description: 'Đi chùa là phụ, ăn trưa là chính.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Dung456&backgroundColor=d1d4f9', color: 'from-indigo-400 to-blue-300', span: 'md:col-span-1 md:row-span-2' },
+    { name: 'Tân', role: 'Đội Trưởng Hậu Cần', description: 'Vác balo nặng nhất đoàn, bao gồm nước và đồ ăn vặt.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Tan&backgroundColor=ffd5dc', color: 'from-rose-400 to-red-300', span: 'md:col-span-2 md:row-span-1' },
+    { name: 'Tuyển', role: 'Bậc Thầy Giao Tiếp', description: 'Trò chuyện với sư thầy, cò vé tàu các kiểu.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Tuyen&backgroundColor=b6e3f4', color: 'from-cyan-400 to-teal-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Tâm', role: 'Nhà Bảo Hành Tâm Linh', description: 'Chăm đi lễ sớm, xin quẻ bói siêu chuẩn.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Tam789&backgroundColor=c0aede', color: 'from-violet-400 to-purple-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Quyết', role: 'Chúa Tể Cao Su', description: 'Tập trung 07:50 nhưng 08:00 mới ngủ dậy.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Quyet&backgroundColor=ffdfbf', color: 'from-yellow-400 to-orange-300', span: 'md:col-span-1 md:row-span-1' },
+    { name: 'Mai Anh', role: 'Nữ Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=MaiAnh22&backgroundColor=ffd5dc', color: 'from-pink-400 to-rose-300', span: 'md:col-span-2 md:row-span-1' },
 ];
 
 const containerVariants = {
@@ -70,22 +70,22 @@ const TeamBoard = () => {
                 </div>
 
                 <motion.div
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto auto-rows-[minmax(0,1fr)]"
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
                 >
                     {teamMembers.map((member) => (
-                        <Tilt key={member.name} rotationFactor={8} isReverse>
+                        <Tilt key={member.name} rotationFactor={6} isReverse className={member.span}>
                             <SpotlightCard
                                 variants={cardVariants}
                                 whileHover={{
-                                    y: -12,
-                                    scale: 1.02,
+                                    y: -8,
+                                    scale: 1.01,
                                     transition: { type: "spring", stiffness: 300, damping: 20 }
                                 }}
-                                className="group bg-white rounded-[2rem] p-6 md:p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-forest-100 transition-all duration-300 text-center flex flex-col items-center relative overflow-hidden"
+                                className="group h-full bg-white rounded-[2rem] p-6 md:p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:border-forest-100 transition-all duration-300 text-center flex flex-col items-center justify-center relative overflow-hidden"
                             >
                                 {/* Card glow effect */}
                                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${member.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-bl-full pointer-events-none`}></div>

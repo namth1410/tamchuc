@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BlurText } from './ui/BlurText';
 import { Aurora } from './ui/Aurora';
+import { GhostCursor } from './ui/GhostCursor';
 import { MapPin, Calendar, Clock, ChevronDown } from 'lucide-react';
 
 const Hero = () => {
@@ -59,6 +60,7 @@ const Hero = () => {
 
     return (
         <section className="relative min-h-[100svh] flex items-center justify-center pt-16 pb-12 overflow-hidden bg-forest-900">
+            <GhostCursor />
             {/* Aurora Background Effect */}
             <Aurora colorStops={["#22c55e", "#eab308", "#14532d"]} speed={0.8} />
 
