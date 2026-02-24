@@ -8,17 +8,16 @@ interface GlitchTextProps {
 
 export const GlitchText = ({ text, className = '', speed = 1 }: GlitchTextProps) => {
     return (
-        <div className={`inline-block relative ${className}`}>
+        <span className="inline-block relative">
             {/* Base Text */}
-            <span className="relative inline-block z-10">{text}</span>
+            <span className={`relative inline-block z-10 ${className}`}>{text}</span>
 
             {/* Glitch Layer 1 (Cyan) */}
             <span
-                className="absolute top-0 left-[-2px] z-0 opacity-70 animate-glitch-1"
+                className="absolute top-0 left-[-2px] z-0 opacity-80 animate-glitch-1 pointer-events-none"
                 style={{
                     animationDuration: `${2 / speed}s`,
-                    WebkitTextStroke: '2px #00fff9',
-                    color: 'transparent',
+                    color: '#00fff9',
                     clipPath: 'polygon(0 0, 100% 0, 100% 45%, 0 45%)'
                 }}
                 aria-hidden="true"
@@ -28,11 +27,10 @@ export const GlitchText = ({ text, className = '', speed = 1 }: GlitchTextProps)
 
             {/* Glitch Layer 2 (Magenta) */}
             <span
-                className="absolute top-0 left-[2px] z-0 opacity-70 animate-glitch-2"
+                className="absolute top-0 left-[2px] z-0 opacity-80 animate-glitch-2 pointer-events-none"
                 style={{
                     animationDuration: `${3 / speed}s`,
-                    WebkitTextStroke: '2px #ff00c1',
-                    color: 'transparent',
+                    color: '#ff00c1',
                     clipPath: 'polygon(0 55%, 100% 55%, 100% 100%, 0 100%)'
                 }}
                 aria-hidden="true"
@@ -66,6 +64,6 @@ export const GlitchText = ({ text, className = '', speed = 1 }: GlitchTextProps)
           animation: glitch-2 linear infinite alternate-reverse;
         }
       `}</style>
-        </div>
+        </span>
     );
 };

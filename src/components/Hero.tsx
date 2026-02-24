@@ -4,7 +4,7 @@ import { BlurText } from './ui/BlurText';
 import { Aurora } from './ui/Aurora';
 import { GhostCursor } from './ui/GhostCursor';
 import { GlitchText } from './ui/GlitchText';
-import { MapPin, Calendar, Clock, ChevronDown } from 'lucide-react';
+import { MapPin, Calendar, Clock } from 'lucide-react';
 
 const Hero = () => {
     // Target date: This Sunday at 07:50 AM
@@ -151,7 +151,7 @@ const Hero = () => {
                     </motion.div>
                 </motion.div>
 
-                <motion.div
+                {/* <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 2, duration: 1 }}
@@ -160,7 +160,7 @@ const Hero = () => {
                 >
                     <span className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-semibold mb-2">Cuộn Xuống</span>
                     <ChevronDown className="text-white w-5 h-5 md:w-6 md:h-6" />
-                </motion.div>
+                </motion.div> */}
             </div>
 
             {/* Decorative Wave */}
