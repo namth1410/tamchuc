@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
 
 const teamMembers = [
-    { name: 'Hiếu', role: 'Trưởng Ban Tổ Chức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hieu&backgroundColor=b6e3f4&top=shortHair', color: 'from-blue-400 to-cyan-300' },
-    { name: 'Dung', role: 'Kế Toán Kiêm Thủ Quỹ', description: 'Tay hòm chìa khóa. Thích thu tiền hơn đi chơi.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dung123&backgroundColor=c0aede&top=longHair', color: 'from-purple-400 to-pink-300' },
-    { name: 'Nam', role: 'Camera Man', description: 'Hy sinh thanh xuân để anh em có ảnh Facebook.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Nam&backgroundColor=ffdfbf&top=shortHair', color: 'from-orange-400 to-amber-300' },
-    { name: 'Dũng', role: 'Thánh Phá Mồi', description: 'Đi chùa là phụ, ăn trưa là chính.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Dung456&backgroundColor=d1d4f9&top=shortHair', color: 'from-indigo-400 to-blue-300' },
-    { name: 'Tân', role: 'Đội Trưởng Hậu Cần', description: 'Vác balo nặng nhất đoàn, bao gồm nước và đồ ăn vặt.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Tan&backgroundColor=ffd5dc&top=shortHair', color: 'from-rose-400 to-red-300' },
-    { name: 'Tuyển', role: 'Bậc Thầy Giao Tiếp', description: 'Trò chuyện với sư thầy, cò vé tàu các kiểu.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Tuyen&backgroundColor=b6e3f4&top=shortHair', color: 'from-cyan-400 to-teal-300' },
-    { name: 'Tâm', role: 'Nhà Bảo Hành Tâm Linh', description: 'Chăm đi lễ sớm, xin quẻ bói siêu chuẩn.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Tam789&backgroundColor=c0aede&top=longHair', color: 'from-violet-400 to-purple-300' },
-    { name: 'Quyết', role: 'Chúa Tể Cao Su', description: 'Tập trung 07:50 nhưng 08:00 mới ngủ dậy.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Quyet&backgroundColor=ffdfbf&top=shortHair', color: 'from-yellow-400 to-orange-300' },
-    { name: 'Mai Anh', role: 'Nữ Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=MaiAnh&backgroundColor=ffd5dc&top=longHair', color: 'from-pink-400 to-rose-300' },
+    { name: 'Hiếu', role: 'Trưởng Ban Tổ Chức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Hieu12&backgroundColor=b6e3f4', color: 'from-blue-400 to-cyan-300' },
+    { name: 'Dung', role: 'Kế Toán Kiêm Thủ Quỹ', description: 'Tay hòm chìa khóa. Thích thu tiền hơn đi chơi.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Dung123&backgroundColor=c0aede', color: 'from-purple-400 to-pink-300' },
+    { name: 'Nam', role: 'Camera Man', description: 'Hy sinh thanh xuân để anh em có ảnh Facebook.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Nam&backgroundColor=ffdfbf', color: 'from-orange-400 to-amber-300' },
+    { name: 'Dũng', role: 'Thánh Phá Mồi', description: 'Đi chùa là phụ, ăn trưa là chính.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Dung456&backgroundColor=d1d4f9', color: 'from-indigo-400 to-blue-300' },
+    { name: 'Tân', role: 'Đội Trưởng Hậu Cần', description: 'Vác balo nặng nhất đoàn, bao gồm nước và đồ ăn vặt.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Tan&backgroundColor=ffd5dc', color: 'from-rose-400 to-red-300' },
+    { name: 'Tuyển', role: 'Bậc Thầy Giao Tiếp', description: 'Trò chuyện với sư thầy, cò vé tàu các kiểu.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Tuyen&backgroundColor=b6e3f4', color: 'from-cyan-400 to-teal-300' },
+    { name: 'Tâm', role: 'Nhà Bảo Hành Tâm Linh', description: 'Chăm đi lễ sớm, xin quẻ bói siêu chuẩn.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Tam789&backgroundColor=c0aede', color: 'from-violet-400 to-purple-300' },
+    { name: 'Quyết', role: 'Chúa Tể Cao Su', description: 'Tập trung 07:50 nhưng 08:00 mới ngủ dậy.', avatar: 'https://api.dicebear.com/7.x/notionists/svg?seed=Quyet&backgroundColor=ffdfbf', color: 'from-yellow-400 to-orange-300' },
+    { name: 'Mai Anh', role: 'Nữ Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: 'https://api.dicebear.com/7.x/lorelei/svg?seed=MaiAnh22&backgroundColor=ffd5dc', color: 'from-pink-400 to-rose-300' },
 ];
 
 const containerVariants = {
