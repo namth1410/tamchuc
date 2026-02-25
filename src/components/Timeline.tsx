@@ -87,7 +87,7 @@ const timelineData = [
     },
 ];
 
-const TimelineCard = ({ item, index }: { item: any; index: number }) => {
+const TimelineCard = ({ item, index }: { item: typeof timelineData[0]; index: number }) => {
     const isEven = index % 2 === 0;
 
     return (
