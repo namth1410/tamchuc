@@ -3,14 +3,14 @@ import { DomeGallery } from './ui/DomeGallery';
 
 const teamMembers = [
     { id: 1, name: 'Hiếu', role: 'Trưởng Ban Tổ Cchức', description: 'Người khởi xướng mọi cuộc vui. Lên timeline chuẩn chỉ.', avatar: '/Hiếu.png', color: 'from-blue-400 to-cyan-300' },
-    { id: 2, name: 'Nam', role: 'Chiến Thần AI', description: 'Chúa tể ngôn ngữ, bậc thầy code dạo. Luôn sẵn sàng giải đáp mọi thắc mắc.', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Nam', color: 'from-emerald-400 to-teal-300' },
+    { id: 2, name: 'Nam', role: 'Chiến Thần AI', description: 'Chúa tể ngôn ngữ, bậc thầy code dạo. Luôn sẵn sàng giải đáp mọi thắc mắc.', avatar: '/Nam.jpeg', color: 'from-emerald-400 to-teal-300' },
     { id: 3, name: 'Dung', role: 'Kế Toán Kiêm Thủ Quỹ', description: 'Tay hòm chìa khóa. Thích thu tiền hơn đi chơi.', avatar: '/Dung.png', color: 'from-purple-400 to-pink-300' },
     { id: 4, name: 'Dũng', role: 'Thánh Phá Mồi', description: 'Đi chùa là phụ, ăn trưa là chính.', avatar: '/Dũng.png', color: 'from-indigo-400 to-blue-300' },
     { id: 5, name: 'Tân', role: 'Đội Trưởng Hậu Cần', description: 'Vác balo nặng nhất đoàn, bao gồm nước và đồ ăn vặt.', avatar: '/Tân.png', color: 'from-rose-400 to-red-300' },
     { id: 6, name: 'Tuyển', role: 'Bậc Thầy Giao Tiếp', description: 'Trò chuyện với sư thầy, cò vé tàu các kiểu.', avatar: '/Tuyển.png', color: 'from-cyan-400 to-teal-300' },
     { id: 7, name: 'Tâm', role: 'Nhà Bảo Hành Tâm Linh', description: 'Chăm đi lễ sớm, xin quẻ bói siêu chuẩn.', avatar: '/Tâm.png', color: 'from-violet-400 to-purple-300' },
     { id: 8, name: 'Quyết', role: 'Chúa Tể Cao Su', description: 'Tập trung 07:50 nhưng 08:00 mới ngủ dậy.', avatar: '/Quyết.png', color: 'from-yellow-400 to-orange-300' },
-    { id: 9, name: 'Định', role: 'Ông Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Nam', color: 'from-pink-400 to-rose-300' },
+    { id: 9, name: 'Định', role: 'Ông Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: '/Định.png', color: 'from-pink-400 to-rose-300' },
 ];
 
 const TeamBoard = () => {
