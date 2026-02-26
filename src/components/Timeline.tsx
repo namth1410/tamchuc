@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { Car, Ticket, Anchor, Utensils, Castle, Mountain, SunMedium, Home } from 'lucide-react';
 import { WavyText } from './ui/WavyText';
@@ -7,7 +8,7 @@ const timelineData = [
     {
         time: '08:00',
         title: 'Xuất phát từ Hà Nội',
-        description: 'Tập trung lúc 07:50 tại Artemis Lê Trọng Tấn. Di chuyển theo hướng QL1A hoặc cao tốc Pháp Vân - Cầu Giẽ.',
+        description: (<>Tập trung lúc 07:50 tại <button onClick={() => document.getElementById('meeting-point')?.scrollIntoView({ behavior: 'smooth' })} className="text-blue-500 underline underline-offset-2 hover:text-blue-700 font-semibold transition-colors cursor-pointer">Eco Green City</button>. Di chuyển theo hướng QL1A hoặc cao tốc Pháp Vân - Cầu Giẽ.</>),
         icon: Car,
         color: 'from-blue-400 to-blue-600',
         shadow: 'shadow-blue-500/40',
@@ -87,7 +88,7 @@ const timelineData = [
     },
 ];
 
-const TimelineCard = ({ item, index }: { item: typeof timelineData[0]; index: number }) => {
+const TimelineCard = ({ item, index }: { item: { time: string; title: string; description: ReactNode; icon: any; color: string; shadow: string; iconBg: string }; index: number }) => {
     const isEven = index % 2 === 0;
 
     return (

@@ -106,10 +106,13 @@ const Hero = () => {
                             <span>07:50 Sáng</span>
                         </div>
                         <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gold-500/50"></div>
-                        <div className="flex items-center gap-2.5 bg-white/5 md:bg-transparent px-4 py-2 md:p-0 rounded-2xl md:rounded-none backdrop-blur-sm md:backdrop-blur-none border border-white/5 md:border-none w-full sm:w-auto hover:text-white transition-colors">
-                            <MapPin className="w-5 h-5 text-gold-400 drop-shadow-md flex-shrink-0" />
-                            <span className="text-left leading-tight">Artemis Lê Trọng Tấn</span>
-                        </div>
+                        <button
+                            onClick={() => document.getElementById('meeting-point')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="flex items-center gap-2.5 bg-white/5 md:bg-transparent px-4 py-2 md:p-0 rounded-2xl md:rounded-none backdrop-blur-sm md:backdrop-blur-none border border-white/5 md:border-none w-full sm:w-auto hover:text-white transition-colors cursor-pointer group/loc"
+                        >
+                            <MapPin className="w-5 h-5 text-gold-400 drop-shadow-md flex-shrink-0 group-hover/loc:animate-bounce" />
+                            <span className="text-left leading-tight underline decoration-gold-400/50 underline-offset-4 group-hover/loc:decoration-gold-400 transition-all">Eco Green City</span>
+                        </button>
                     </motion.div>
 
                     {/* Countdown Timer */}

@@ -1,5 +1,6 @@
 
 import Hero from './components/Hero';
+import MapSection from './components/MapSection';
 import Timeline from './components/Timeline';
 import TeamBoard from './components/TeamBoard';
 import Checklist from './components/Checklist';
@@ -12,6 +13,7 @@ function App() {
       <GradualBlur position="bottom" className="fixed bottom-0 left-0 w-full h-32 z-[100] pointer-events-none" blurAmount="16px" fadeEnd={100} />
 
       <Hero />
+      <MapSection />
       <Timeline />
       <TeamBoard />
       <Checklist />
