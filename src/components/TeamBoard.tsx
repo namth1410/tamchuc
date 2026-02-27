@@ -11,6 +11,8 @@ const teamMembers = [
     { id: 7, name: 'Tâm', role: 'Nhà Bảo Hành Tâm Linh', description: 'Chăm đi lễ sớm, xin quẻ bói siêu chuẩn.', avatar: '/Tâm.png', color: 'from-violet-400 to-purple-300' },
     { id: 8, name: 'Quyết', role: 'Chúa Tể Cao Su', description: 'Tập trung 07:50 nhưng 08:00 mới ngủ dậy.', avatar: '/Quyết.png', color: 'from-yellow-400 to-orange-300' },
     { id: 9, name: 'Định', role: 'Ông Hoàng Cuốc Bộ', description: 'Thề sẽ leo đến Đỉnh Thất Tinh đầu tiên.', avatar: '/Định.png', color: 'from-pink-400 to-rose-300' },
+    { id: 10, name: 'Trang', role: 'Đóa Hoa Rừng', description: 'Nét đẹp dịu dàng, tiếp thêm động lực cho cả đoàn leo núi.', avatar: '/Trang.png', color: 'from-orange-400 to-amber-300' },
+    { id: 11, name: 'Linh', role: 'Nàng Thơ Tam Chúc', description: 'Check-in mọi ngóc ngách, lưu giữ khoảnh khắc đẹp nhất.', avatar: '/Linh.png', color: 'from-cyan-400 to-sky-300' },
 ];
 
 const TeamBoard = () => {
@@ -52,7 +54,7 @@ const TeamBoard = () => {
                         transition={{ delay: 0.2 }}
                         className="text-slate-500 text-base md:text-lg max-w-2xl mx-auto px-4 font-medium leading-relaxed"
                     >
-                        9 gương mặt vàng trong làng phá đò... à nhầm, đi chùa Tam Chúc. Kéo để xoay panorama mượt mà!
+                        11 gương mặt vàng trong làng phá đò... à nhầm, đi chùa Tam Chúc. Kéo để xoay panorama mượt mà!
                     </motion.p>
                 </div>
 

@@ -25,7 +25,7 @@ const Hero = () => {
         // Set target to this coming Sunday at 07:50:00
         const targetDate = new Date(now);
         targetDate.setDate(now.getDate() + daysUntilSunday);
-        targetDate.setHours(7, 50, 0, 0);
+        targetDate.setHours(7, 45, 0, 0);
 
         // If it's Sunday but past 7:50 AM, target NEXT Sunday
         if (now.getTime() > targetDate.getTime()) {
@@ -103,7 +103,7 @@ const Hero = () => {
                         <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gold-500/50"></div>
                         <div className="flex items-center gap-2.5 bg-white/5 md:bg-transparent px-4 py-2 md:p-0 rounded-2xl md:rounded-none backdrop-blur-sm md:backdrop-blur-none border border-white/5 md:border-none w-full sm:w-auto hover:text-white transition-colors">
                             <Clock className="w-5 h-5 text-gold-400 drop-shadow-md" />
-                            <span>07:50 Sáng</span>
+                            <span>07:45 Sáng</span>
                         </div>
                         <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gold-500/50"></div>
                         <button
@@ -111,7 +111,7 @@ const Hero = () => {
                             className="flex items-center gap-2.5 bg-white/5 md:bg-transparent px-4 py-2 md:p-0 rounded-2xl md:rounded-none backdrop-blur-sm md:backdrop-blur-none border border-white/5 md:border-none w-full sm:w-auto hover:text-white transition-colors cursor-pointer group/loc"
                         >
                             <MapPin className="w-5 h-5 text-gold-400 drop-shadow-md flex-shrink-0 group-hover/loc:animate-bounce" />
-                            <span className="text-left leading-tight underline decoration-gold-400/50 underline-offset-4 group-hover/loc:decoration-gold-400 transition-all">Eco Green City</span>
+                            <span className="text-left leading-tight underline decoration-gold-400/50 underline-offset-4 group-hover/loc:decoration-gold-400 transition-all">PTIT</span>
                         </button>
                     </motion.div>
 

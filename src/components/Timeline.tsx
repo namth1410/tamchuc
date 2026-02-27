@@ -1,15 +1,15 @@
 import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { Car, Ticket, Anchor, Utensils, Castle, Mountain, SunMedium, Home } from 'lucide-react';
+import { Bike, Ticket, Anchor, Utensils, Castle, Mountain, SunMedium, Home } from 'lucide-react';
 import { WavyText } from './ui/WavyText';
 import { ScrollReveal } from './ui/ScrollReveal';
 
 const timelineData = [
     {
-        time: '08:00',
-        title: 'Xuất phát từ Hà Nội',
-        description: (<>Tập trung lúc 07:50 tại <button onClick={() => document.getElementById('meeting-point')?.scrollIntoView({ behavior: 'smooth' })} className="text-blue-500 underline underline-offset-2 hover:text-blue-700 font-semibold transition-colors cursor-pointer">Eco Green City</button>. Di chuyển theo hướng QL1A hoặc cao tốc Pháp Vân - Cầu Giẽ.</>),
-        icon: Car,
+        time: '07:45',
+        title: 'Tập trung & Xuất phát',
+        description: (<>Tập trung lúc 07:45 tại <button onClick={() => document.getElementById('meeting-point')?.scrollIntoView({ behavior: 'smooth' })} className="text-blue-500 underline underline-offset-2 hover:text-blue-700 font-semibold transition-colors cursor-pointer">PTIT</button>. Di chuyển theo hướng QL1A hoặc cao tốc Pháp Vân - Cầu Giẽ.</>),
+        icon: Bike,
         color: 'from-blue-400 to-blue-600',
         shadow: 'shadow-blue-500/40',
         iconBg: 'bg-blue-500'
@@ -71,8 +71,8 @@ const timelineData = [
     {
         time: '17:15',
         title: 'Lên xe về Hà Nội',
-        description: 'Điểm danh đủ 9 mạng rùi anh em lên xe về phố thị.',
-        icon: Car,
+        description: 'Điểm danh đủ 11 mạng rùi anh em lên xe về phố thị.',
+        icon: Bike,
         color: 'from-blue-500 to-blue-700',
         shadow: 'shadow-blue-600/40',
         iconBg: 'bg-blue-600'

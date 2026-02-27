@@ -4,11 +4,11 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { MapPin, Navigation, ExternalLink } from 'lucide-react';
 
-const ECO_GREEN_CITY = {
-    lng: 105.8088007,
-    lat: 20.9834822,
-    name: 'Eco Green City',
-    address: 'Nguyễn Xiển, Thanh Trì, Hà Nội',
+const PTIT_LOCATION = {
+    lng: 105.7874165,
+    lat: 20.980913,
+    name: 'PTIT',
+    address: 'Km10 Đường Nguyễn Trãi, P. Mộ Lao, Hà Đông, Hà Nội',
 };
 
 const MapSection = () => {
@@ -21,7 +21,7 @@ const MapSection = () => {
         const map = new maplibregl.Map({
             container: mapContainer.current,
             style: 'https://tiles.openfreemap.org/styles/liberty',
-            center: [ECO_GREEN_CITY.lng, ECO_GREEN_CITY.lat],
+            center: [PTIT_LOCATION.lng, PTIT_LOCATION.lat],
             zoom: 15,
             attributionControl: false,
         });
@@ -44,7 +44,7 @@ const MapSection = () => {
                     white-space: nowrap;
                     transform: translateY(-4px);
                     border: 2px solid rgba(255,255,255,0.8);
-                ">📍 Eco Green City</div>
+                ">📍 PTIT</div>
                 <div style="
                     width: 3px;
                     height: 12px;
@@ -62,7 +62,7 @@ const MapSection = () => {
         `;
 
         new maplibregl.Marker({ element: markerEl })
-            .setLngLat([ECO_GREEN_CITY.lng, ECO_GREEN_CITY.lat])
+            .setLngLat([PTIT_LOCATION.lng, PTIT_LOCATION.lat])
             .addTo(map);
 
         // Add pulse animation
@@ -86,7 +86,7 @@ const MapSection = () => {
 
     const handleDirections = () => {
         window.open(
-            `https://www.google.com/maps/dir/?api=1&destination=${ECO_GREEN_CITY.lat},${ECO_GREEN_CITY.lng}&destination_place_id=Eco+Green+City`,
+            `https://www.google.com/maps/dir/?api=1&destination=${PTIT_LOCATION.lat},${PTIT_LOCATION.lng}&destination_place_id=Post+and+Telecommunications+Institute+of+Technology`,
             '_blank'
         );
     };
@@ -116,7 +116,7 @@ const MapSection = () => {
                         transition={{ delay: 0.1 }}
                         className="text-3xl sm:text-4xl md:text-5xl font-black text-forest-900 mb-3 tracking-tight"
                     >
-                        Eco Green City
+                        PTIT
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 15 }}
@@ -125,7 +125,7 @@ const MapSection = () => {
                         transition={{ delay: 0.2 }}
                         className="text-slate-500 text-base md:text-lg max-w-xl mx-auto font-medium"
                     >
-                        {ECO_GREEN_CITY.address} — Tập trung lúc <strong className="text-forest-700">07:50 sáng</strong> Chủ Nhật
+                        {PTIT_LOCATION.address} — Tập trung lúc <strong className="text-forest-700">07:45 sáng</strong> Chủ Nhật
                     </motion.p>
                 </div>
 
@@ -151,8 +151,8 @@ const MapSection = () => {
                                     <MapPin className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-forest-900 text-lg">{ECO_GREEN_CITY.name}</h3>
-                                    <p className="text-slate-400 text-sm">{ECO_GREEN_CITY.address}</p>
+                                    <h3 className="font-bold text-forest-900 text-lg">{PTIT_LOCATION.name}</h3>
+                                    <p className="text-slate-400 text-sm">{PTIT_LOCATION.address}</p>
                                 </div>
                             </div>
 
@@ -165,7 +165,7 @@ const MapSection = () => {
                                     Chỉ đường
                                 </button>
                                 <a
-                                    href="https://maps.app.goo.gl/FNouijDX21yw7mPz6"
+                                    href="https://maps.app.goo.gl/phbFUgEXxCaMyYeg8"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-forest-50 text-forest-700 font-semibold text-sm border border-forest-200 hover:bg-forest-100 hover:scale-105 transition-all"

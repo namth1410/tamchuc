@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import MapSection from './components/MapSection';
 import Timeline from './components/Timeline';
 import TeamBoard from './components/TeamBoard';
+import CarpoolSection from './components/CarpoolSection';
 import Checklist from './components/Checklist';
 import { GradualBlur } from './components/ui/GradualBlur';
 
@@ -16,6 +17,7 @@ function App() {
       <MapSection />
       <Timeline />
       <TeamBoard />
+      <CarpoolSection />
       <Checklist />
 
       {/* Footer */}
