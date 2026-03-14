@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, ArrowRight, X, LayoutGrid, Columns2 } from "lucide-react";
 import SeasonSlider from "./components/SeasonSlider";

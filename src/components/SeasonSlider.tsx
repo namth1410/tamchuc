@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import React, { useState, useRef } from 'react';
 
 interface SeasonSliderProps {
   waterSeasonImg: string;
