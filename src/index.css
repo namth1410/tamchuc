@@ -29,8 +29,7 @@
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
-  
-  /* Spacing & Transitions */
+
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
   --transition-smooth: 0.6s var(--ease-out-expo);
 }
@@ -56,6 +55,16 @@
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.1;
+  }
+
+  h1 { font-size: 3.5rem; }
+  h2 { font-size: 2.5rem; }
+  h3 { font-size: 1.75rem; }
+
+  @media (min-width: 768px) {
+    h1 { font-size: 6rem; }
+    h2 { font-size: 4rem; }
+    h3 { font-size: 2.5rem; }
   }
 }
 
@@ -102,6 +111,12 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
 }
 
 .flex-center {

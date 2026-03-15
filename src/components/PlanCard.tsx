@@ -23,7 +23,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className={`glass p-8 relative overflow-hidden flex flex-col h-full ${isSelected ? 'border-accent ring-2 ring-accent/20 bg-white/10' : ''}`}
+      className={`glass p-5 md:p-8 relative overflow-hidden flex flex-col h-full ${isSelected ? 'border-accent ring-2 ring-accent/20 bg-white/10' : ''}`}
     >
       {/* Selection Badge */}
       {isSelected && !isComparison && (
@@ -35,9 +35,9 @@ const PlanCard: React.FC<PlanCardProps> = ({
       {/* Background Glow */}
       <div className={`absolute -top-20 -right-20 w-40 h-40 blur-[60px] rounded-full pointer-events-none transition-colors duration-700 ${isSelected ? 'bg-accent/30' : 'bg-terrace-gold/10'}`} />
       
-      <div className="flex justify-between items-start mb-6">
-        <h3 className="text-2xl font-bold text-white leading-tight max-w-[70%]">{title}</h3>
-        <div className="glass-dark px-4 py-2 text-accent font-black rounded-xl flex items-center gap-2 border border-accent/20">
+      <div className="flex justify-between items-start mb-4 md:mb-6">
+        <h3 className="text-xl md:text-2xl font-bold text-white leading-tight max-w-[70%]">{title}</h3>
+        <div className="glass-dark px-3 md:px-4 py-1.5 md:py-2 text-accent font-black rounded-xl flex items-center gap-1.5 md:gap-2 border border-accent/20 text-xs md:text-base whitespace-nowrap">
           <Wallet size={16} />
           {cost}
         </div>
@@ -54,7 +54,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
         </div>
       </div>
 
-      <p className="text-white/85 mb-8 flex-grow leading-relaxed font-medium">{description}</p>
+      <p className="text-white/85 mb-6 md:mb-8 flex-grow leading-relaxed font-medium text-sm md:text-base">{description}</p>
 
       <div className="space-y-3 mb-8">
         {points.map((pt, i) => (
@@ -68,9 +68,9 @@ const PlanCard: React.FC<PlanCardProps> = ({
       <div className="flex gap-3 mt-auto">
         <button 
           onClick={onViewDetails}
-          className="flex-grow bg-white text-black font-black py-4 px-6 rounded-2xl hover:bg-accent transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg"
+          className="flex-grow bg-white text-black font-black py-3.5 md:py-4 px-4 md:px-6 rounded-2xl hover:bg-accent transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg text-sm md:text-base"
         >
-          Xem Chi Tiết
+          Chi Tiết
           <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
         </button>
         {onCompare && !isComparison && (
