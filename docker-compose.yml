@@ -15,6 +15,7 @@ services:
       - web-proxy # Mạng nội bộ kết nối với Traefik
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=web-proxy"
       
       # [THAY ĐỔI DOMAIN ĐỂ TRẢ VỀ FRONTEND]
       - "traefik.http.routers.haohan.rule=Host(`haohan.namth.online`)" 
