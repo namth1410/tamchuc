@@ -12,7 +12,7 @@ services:
       - ./vps-data/data.json:/app/data.json
       - ./vps-data/uploads:/app/uploads
     networks:
-      - traefik-proxy # Mạng nội bộ kết nối với Traefik
+      - web-proxy # Mạng nội bộ kết nối với Traefik
     labels:
       - "traefik.enable=true"
       
@@ -28,5 +28,5 @@ services:
 
 # Cấu hình mạng external traefik mà VPS đang dùng
 networks:
-  traefik-proxy:
+  web-proxy:
     external: true
