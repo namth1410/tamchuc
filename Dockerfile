@@ -1,16 +1,20 @@
-# Build stage
-FROM node:22-alpine AS builder
+FROM node:20-alpine
+
+# Set working directory
 WORKDIR /app
-COPY package*.json ./
+
+# Copy package config first for caching
+COPY package.json package-lock.json* ./
 RUN npm ci
+
+# Copy entire project
 COPY . .
+
+# Build Vite frontend to /dist folder
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
-# Copy custom nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Copy built assets
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Expose backend port
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+
+# Start Express server (Which now also serves /dist UI)
+CMD ["node", "server.js"]

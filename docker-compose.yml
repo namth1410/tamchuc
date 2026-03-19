@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  tamchuc-web:
+    build: .
+    container_name: nhatky_haohan_app
+    restart: unless-stopped
+    volumes:
+      # GIẢI PHÁP VĨNH VIỄN CHO CIP/CD:
+      # Ánh xạ Thư mục ảnh và Database cục bộ ra ổ cứng của VPS
+      - ./vps-data/data.json:/app/data.json
+      - ./vps-data/uploads:/app/uploads
+    networks:
+      - traefik-proxy # Mạng nội bộ kết nối với Traefik
+    labels:
+      - "traefik.enable=true"
+      
+      # [THAY ĐỔI DOMAIN ĐỂ TRẢ VỀ FRONTEND]
+      - "traefik.http.routers.tamchuc.rule=Host(`nhatky.haohan.net`)" 
+      - "traefik.http.routers.tamchuc.entrypoints=websecure" # Hoặc "https" tuỳ cấu hình của bạn
+      
+      # [CẤU HÌNH SSL LETSENCRYPT NẾU CÓ]
+      # - "traefik.http.routers.tamchuc.tls.certresolver=myresolver" 
+      
+      # Express API Server lắng nghe cổng 3000
+      - "traefik.http.services.tamchuc.loadbalancer.server.port=3000"
+
+# Cấu hình mạng external traefik mà VPS đang dùng
+networks:
+  traefik-proxy:
+    external: true

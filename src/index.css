@@ -2,11 +2,39 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent: #ffcc00;
-  --color-accent-hover: #ffd633;
-  --color-moss-green: #2d4f1e;
-  --color-terrace-gold: #d4af37;
-  --color-sky-blue: #a3c1ad;
+  --color-accent: var(--trip-primary, #ffcc00);
+  --color-accent-hover: var(--trip-primary-hover, #ffd633);
+  --color-moss-green: var(--trip-secondary, #2d4f1e);
+  --color-terrace-gold: var(--trip-terrace-gold, #d4af37);
+  --color-sky-blue: var(--trip-sky-blue, #a3c1ad);
+
+  /* Legacy Tam Chuc Theme Colors */
+  --color-forest-50: #f4fbf7;
+  --color-forest-100: #e3f5eb;
+  --color-forest-200: #c6e9d5;
+  --color-forest-300: #9ad7b6;
+  --color-forest-400: #65bd90;
+  --color-forest-500: #3ea070;
+  --color-forest-600: #2c8057;
+  --color-forest-700: #256647;
+  --color-forest-800: #20513a;
+  --color-forest-900: #1b4331;
+  --color-gold-300: #fde047;
+  --color-gold-400: #facc15;
+  --color-gold-500: #eab308;
+  --color-gold-600: #ca8a04;
+
+  --animate-blob: blob 10s infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-tilt: tilt 10s infinite linear;
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
 }
 
 :root {
@@ -19,11 +47,11 @@
   --text-dim: rgba(255, 255, 255, 0.85); /* Increased from 0.6 */
   
   /* Modern Dark Theme */
-  --bg-dark: #0a0f0b; 
+  --bg-dark: var(--trip-bg, #0a0f0b); 
   --card-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.2);
-  --accent: #ffcc00; 
-  --accent-hover: #ffd633;
+  --accent: var(--trip-primary, #ffcc00); 
+  --accent-hover: var(--trip-primary-hover, #ffd633);
   --button-text: #000000;
   
   /* Typography */
