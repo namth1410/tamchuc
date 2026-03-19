@@ -17,7 +17,7 @@ services:
       - "traefik.enable=true"
       
       # [THAY ĐỔI DOMAIN ĐỂ TRẢ VỀ FRONTEND]
-      - "traefik.http.routers.haohan.rule=Host(`nhatky.haohan.net`)" 
+      - "traefik.http.routers.haohan.rule=Host(`haohan.namth.online`)" 
       - "traefik.http.routers.haohan.entrypoints=websecure" # Hoặc "https" tuỳ cấu hình của bạn
       
       # [CẤU HÌNH SSL LETSENCRYPT NẾU CÓ]
