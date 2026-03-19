@@ -21,7 +21,7 @@ services:
       - "traefik.http.routers.haohan.entrypoints=websecure" # Hoặc "https" tuỳ cấu hình của bạn
       
       # [CẤU HÌNH SSL LETSENCRYPT NẾU CÓ]
-      # - "traefik.http.routers.haohan.tls.certresolver=myresolver" 
+      - "traefik.http.routers.haohan.tls.certresolver=myresolver" 
       
       # Express API Server lắng nghe cổng 3000
       - "traefik.http.services.haohan.loadbalancer.server.port=3000"
