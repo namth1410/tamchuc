@@ -275,7 +275,7 @@ if (fs.existsSync(distPath)) {
   app.use(express.static(distPath));
   
   // Mọi request không trúng API sẽ được gửi về React index.html để xử lý Client-side Routing
-  app.get('*', (req, res) => {
+  app.use((req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }
