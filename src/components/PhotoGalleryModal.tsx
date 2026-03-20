@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Upload, X, Loader2, Maximize2, Heart, Trash2 } from 'lucide-react';
+import { Upload, X, Loader2, Maximize2, Heart, Trash2, Lock } from 'lucide-react';
 import { fetchPhotos, uploadPhotos, deletePhoto, togglePhotoLike, BASE_URL } from '../lib/api';
 import { compressImage } from '../lib/imageCompression';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -72,6 +72,10 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [pendingFiles, setPendingFiles] = useState<FileList | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const loadPhotos = () => {
@@ -94,14 +98,29 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
     }
   }, [visibleCount, photos.length]);
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
+    setPendingFiles(files);
+    setShowPasswordPrompt(true);
+    setPasswordInput('');
+    setPasswordError('');
+  };
+
+  const submitPasswordAndUpload = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (passwordInput !== '01664157092a') {
+      setPasswordError('Sai mật khẩu rồi đại ca!');
+      return;
+    }
+
+    setShowPasswordPrompt(false);
+    if (!pendingFiles) return;
 
     setUploading(true);
     try {
       const compressedFilesArray = await Promise.all(
-        Array.from(files).map(file => compressImage(file))
+        Array.from(pendingFiles).map(file => compressImage(file))
       );
       
       const author = localStorage.getItem('travel_user') || 'Khách';
@@ -111,8 +130,16 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
       console.error('Lỗi khi tải ảnh:', err);
     } finally {
       setUploading(false);
+      setPendingFiles(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
+  };
+
+  const cancelUpload = () => {
+    setShowPasswordPrompt(false);
+    setPendingFiles(null);
+    setPasswordError('');
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleToggleLike = async (e: React.MouseEvent, photoId: string) => {
@@ -159,11 +186,11 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
         <div className="flex items-center gap-2 md:gap-4 pointer-events-auto">
           <input 
             type="file" 
-            accept="image/*" 
+            accept="image/*,video/*" 
             multiple
             className="hidden" 
             ref={fileInputRef} 
-            onChange={handleUpload} 
+            onChange={handleUploadClick} 
           />
           <button 
             onClick={() => fileInputRef.current?.click()}
@@ -247,6 +274,66 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
             )}
           </motion.div>
         )}
+        </AnimatePresence>,
+        document.body
+      )}
+
+      {/* Password Prompt Modal */}
+      {createPortal(
+        <AnimatePresence>
+          {showPasswordPrompt && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[300] flex items-center justify-center bg-black/80 backdrop-blur-md p-4"
+              onClick={cancelUpload}
+            >
+              <motion.div 
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                onClick={(e) => e.stopPropagation()}
+                className="bg-[#0a0f0b] border border-white/10 rounded-[2rem] p-8 max-w-sm md:max-w-md w-full shadow-2xl relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent" />
+                
+                <div className="flex flex-col items-center mb-6">
+                  <div className="w-16 h-16 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] flex items-center justify-center mb-4 border border-[var(--accent)]/20 shadow-[0_0_20px_rgba(var(--accent-rgb,255,204,0),0.2)]">
+                    <Lock size={32} />
+                  </div>
+                  <h3 className="text-2xl font-black text-white text-center tracking-tight">Xác thực</h3>
+                  <p className="text-white/50 text-center text-sm mt-2 font-medium">Nhập mật khẩu nội bộ để đóng góp</p>
+                </div>
+
+                <form onSubmit={submitPasswordAndUpload} className="flex flex-col gap-4">
+                  <div>
+                    <input 
+                      type="password" 
+                      value={passwordInput}
+                      onChange={(e) => {
+                        setPasswordInput(e.target.value);
+                        setPasswordError('');
+                      }}
+                      autoFocus
+                      placeholder="Mã bí mật..." 
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-center tracking-[0.2em] font-medium text-white focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all placeholder:tracking-normal"
+                    />
+                    {passwordError && <p className="text-red-400 text-xs mt-2 font-medium text-center">{passwordError}</p>}
+                  </div>
+
+                  <div className="flex gap-3 mt-4">
+                    <button type="button" onClick={cancelUpload} className="flex-1 px-4 py-3.5 rounded-xl border border-white/10 text-white/70 hover:text-white hover:bg-white/5 font-bold transition-all">
+                      Thoát
+                    </button>
+                    <button type="submit" className="flex-1 px-4 py-3.5 rounded-xl bg-[var(--accent)] text-black hover:bg-[var(--accent)]/90 font-bold transition-all shadow-[0_0_15px_var(--accent)] hover:scale-[1.02]">
+                      Mở khoá
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </motion.div>
+          )}
         </AnimatePresence>,
         document.body
       )}

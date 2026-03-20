@@ -26,13 +26,13 @@ export default function IdentityModal() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[999] bg-[#050a06]/90 backdrop-blur-2xl flex items-center justify-center p-4"
         >
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.9, opacity: 0, y: 30 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
@@ -40,19 +40,19 @@ export default function IdentityModal() {
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--accent)]/15 blur-[100px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[100px] rounded-full pointer-events-none" />
-            
+
             <div className="relative z-10 text-center">
               <div className="w-20 h-20 mx-auto bg-[var(--accent)]/10 border border-[var(--accent)]/30 text-[var(--accent)] rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(255,204,0,0.1)]">
                 <UserCircle size={40} strokeWidth={1.5} />
               </div>
-              
+
               <h2 className="text-3xl font-black mb-3 text-white">Bạn là ai?</h2>
               <p className="text-white/60 text-sm mb-6 leading-relaxed font-medium">
                 Chọn tên của bạn trong <strong className="text-white">Nhóm Hảo Hán</strong>, hoặc nhập một bí danh khác ở bên dưới:
               </p>
-              
+
               <div className="flex flex-wrap justify-center gap-2 mb-6">
-                {['Nguyễn Duy Tân', 'Trần Thế Dũng', 'Nguyễn Thế Quyết', 'Nguyễn Văn Tuyển', 'Thu (con gái)', 'Nguyễn Khắc Hiếu', 'Trần Hải Nam'].map(member => (
+                {['Nguyễn Duy Tân', 'Trần Thế Dũng', 'Nguyễn Thế Quyết', 'Nguyễn Văn Tuyển', 'Lê Thị Xuân Thu', 'Nguyễn Khắc Hiếu', 'Trần Hải Nam'].map(member => (
                   <button
                     key={member}
                     type="button"
@@ -63,19 +63,19 @@ export default function IdentityModal() {
                   </button>
                 ))}
               </div>
-              
+
               <form onSubmit={handleSave} className="flex flex-col gap-4">
-                <input 
-                  type="text" 
-                  placeholder="Bí danh của bạn (VD: Trành)..." 
+                <input
+                  type="text"
+                  placeholder="Bí danh của bạn (VD: Trành)..."
                   value={name}
                   onChange={e => setName(e.target.value)}
                   className="w-full bg-white/5 px-6 py-4 rounded-2xl text-center text-lg font-bold text-[var(--accent)] border border-white/10 focus:border-[var(--accent)]/50 focus:bg-white/10 focus:shadow-[0_0_20px_rgba(255,204,0,0.1)] outline-none transition-all placeholder-white/20"
                   autoFocus
                   required
                 />
-                
-                <button 
+
+                <button
                   type="submit"
                   disabled={!name.trim()}
                   className="w-full bg-[var(--accent)] text-black font-black py-4 rounded-2xl flex justify-center items-center gap-2 hover:bg-white hover:scale-[1.02] transition-all disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed uppercase tracking-wider text-sm mt-2 shadow-[0_10px_30px_rgba(255,204,0,0.2)]"

@@ -67,18 +67,18 @@ export default function CreateTripModal({ isOpen, onClose, onSuccess }: { isOpen
             initial={{ scale: 0.9, opacity: 0, y: 30 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 30 }}
-            className="w-full max-w-lg bg-[#111] border border-white/10 rounded-[2rem] shadow-2xl relative overflow-hidden my-8"
+            className="w-full max-w-lg max-h-[90vh] bg-[#111] border border-white/10 rounded-[2rem] shadow-2xl relative overflow-y-auto overflow-x-hidden m-auto"
           >
-            <div className="absolute top-0 right-0 w-full h-40 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+            <div className="sticky top-0 right-0 w-full h-20 bg-gradient-to-b from-[#111] via-[#111]/80 to-transparent pointer-events-none z-[5]" />
             
-            <div className="p-8 border-b border-white/10 flex justify-between items-center relative z-10">
+            <div className="p-8 pb-4 flex justify-between items-center relative z-10 -mt-16">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white shrink-0">
                   <PlaneTakeoff size={20} />
                 </div>
                 <h2 className="text-xl font-black text-white">Tạo Hành Trình Mới</h2>
               </div>
-              <button onClick={onClose} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/50 hover:text-white">
+              <button type="button" onClick={onClose} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/50 hover:text-white shrink-0">
                 <X size={20} />
               </button>
             </div>
@@ -137,7 +137,7 @@ export default function CreateTripModal({ isOpen, onClose, onSuccess }: { isOpen
 
               <div>
                 <label className="block text-xs font-bold text-white/50 uppercase tracking-widest mb-3">Màu Sắc Chủ Đạo (Theme)</label>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
                   {THEMES.map(t => (
                     <button
                       key={t.id}
@@ -145,8 +145,8 @@ export default function CreateTripModal({ isOpen, onClose, onSuccess }: { isOpen
                       onClick={() => setTheme(t.id)}
                       className={`relative flex flex-col items-center gap-2 p-3 rounded-xl border transition-all ${theme === t.id ? 'bg-white/10 border-white/30 shadow-lg' : 'bg-transparent border-transparent hover:bg-white/5'}`}
                     >
-                      <div className="w-10 h-10 rounded-full shadow-inner" style={{ backgroundColor: t.color }} />
-                      <span className="text-xs font-bold text-white/80">{t.name}</span>
+                      <div className="w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full shadow-inner" style={{ backgroundColor: t.color }} />
+                      <span className="text-[10px] md:text-xs font-bold text-white/80 text-center">{t.name}</span>
                       {theme === t.id && (
                         <div className="absolute -top-2 -right-2 bg-white text-black rounded-full p-0.5">
                           <CheckCircle2 size={16} />
