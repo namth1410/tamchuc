@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { fetchTrips } from '../lib/api';
+import { fetchTrips, BASE_URL } from '../lib/api';
 import { Plane, Calendar, ArrowRight, BookOpen, Plus } from 'lucide-react';
 import CreateTripModal from '../components/CreateTripModal';
 
@@ -103,7 +103,7 @@ export default function Dashboard() {
                     <div 
                       className={`relative h-full glass p-8 overflow-hidden rounded-[2rem] border transition-all duration-500 bg-[${trip.bg}] border-white/10 hover:border-white/30 ${trip.coverUrl ? 'group-hover:border-[var(--accent)] text-white' : ''}`}
                       style={trip.coverUrl ? {
-                        backgroundImage: `url(http://localhost:3000${trip.coverUrl})`,
+                        backgroundImage: `url(${BASE_URL}${trip.coverUrl})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center'
                       } : {}}

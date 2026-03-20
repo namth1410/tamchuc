@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Upload, X, Loader2, Maximize2, Heart, Trash2 } from 'lucide-react';
-import { fetchPhotos, uploadPhotos, deletePhoto, togglePhotoLike } from '../lib/api';
+import { fetchPhotos, uploadPhotos, deletePhoto, togglePhotoLike, BASE_URL } from '../lib/api';
 import { compressImage } from '../lib/imageCompression';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -126,18 +126,18 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                onClick={() => setSelectedPhoto(`http://localhost:3000${photo.url}`)}
+                onClick={() => setSelectedPhoto(`${BASE_URL}${photo.url}`)}
                 className="relative rounded-2xl md:rounded-[2rem] overflow-hidden cursor-default bg-black/40 break-inside-avoid shadow-xl border border-white/10 group hover:!opacity-100 group-hover/masonry:opacity-30 transition-all duration-500"
               >
                 {photo.url.match(/\.(mp4|webm|ogg|mov)$/i) ? (
                   <video 
-                    src={`http://localhost:3000${photo.url}`} 
+                    src={`${BASE_URL}${photo.url}`} 
                     className="w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out"
                     preload="metadata"
                   />
                 ) : (
                   <img 
-                    src={`http://localhost:3000${photo.url}`} 
+                    src={`${BASE_URL}${photo.url}`} 
                     alt="Memory" 
                     className="w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out"
                     loading="lazy"
@@ -161,7 +161,7 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
                       {photo.author} • {new Date(photo.timestamp).toLocaleDateString()}
                     </span>
                   </div>
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20 pointer-events-auto hover:bg-white hover:text-black transition-colors" onClick={() => setSelectedPhoto(`http://localhost:3000${photo.url}`)}>
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20 pointer-events-auto hover:bg-white hover:text-black transition-colors" onClick={() => setSelectedPhoto(`${BASE_URL}${photo.url}`)}>
                     <Maximize2 size={16} />
                   </div>
                 </div>

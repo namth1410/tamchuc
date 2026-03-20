@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, UserCircle2, X, Trash2 } from 'lucide-react';
-import { fetchMessages, postMessage, deleteMessage } from '../lib/api';
+import { fetchMessages, postMessage, deleteMessage, BASE_URL } from '../lib/api';
 import { motion } from 'framer-motion';
 
 export default function ChatDrawer({ tripId, onClose }: { tripId: string, onClose: () => void }) {
@@ -36,7 +36,7 @@ export default function ChatDrawer({ tripId, onClose }: { tripId: string, onClos
     loadMessages();
     
     // 2. Mở cổng kết nối Realtime SSE
-    const eventSource = new EventSource(`http://localhost:3000/api/trips/${tripId}/messages/stream`);
+    const eventSource = new EventSource(`${BASE_URL}/api/trips/${tripId}/messages/stream`);
     eventSource.onmessage = (event) => {
       const eventData = JSON.parse(event.data);
       
