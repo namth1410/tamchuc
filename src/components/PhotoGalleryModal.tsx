@@ -202,9 +202,11 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
                 exit={{ scale: 0.8, opacity: 0, y: 40 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                 src={selectedPhoto} 
-                className="max-w-full max-h-full rounded-2xl md:rounded-[2rem] shadow-[0_0_100px_rgba(255,255,255,0.05)] object-contain"
+                className="w-full h-full max-w-full max-h-full rounded-2xl md:rounded-[2rem] shadow-[0_0_100px_rgba(255,255,255,0.05)] object-contain"
                 controls
                 autoPlay
+                playsInline
+                onClick={(e) => e.stopPropagation()}
               />
             ) : (
               <motion.img 
@@ -213,7 +215,8 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
                 exit={{ scale: 0.8, opacity: 0, y: 40 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
                 src={selectedPhoto} 
-                className="max-w-full max-h-full rounded-2xl md:rounded-[2rem] shadow-[0_0_100px_rgba(255,255,255,0.05)] object-contain"
+                className="w-full h-full max-w-full max-h-full rounded-2xl md:rounded-[2rem] shadow-[0_0_100px_rgba(255,255,255,0.05)] object-contain"
+                onClick={(e) => e.stopPropagation()}
               />
             )}
           </motion.div>
