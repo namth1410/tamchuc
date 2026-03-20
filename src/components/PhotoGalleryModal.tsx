@@ -4,6 +4,67 @@ import { fetchPhotos, uploadPhotos, deletePhoto, togglePhotoLike, BASE_URL } fro
 import { compressImage } from '../lib/imageCompression';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const MediaItem = ({ photo, currentUser, onToggleLike, onDelete, onSelect }: any) => {
+  const [loaded, setLoaded] = useState(false);
+  const isVideo = photo.url.match(/\.(mp4|webm|ogg|mov)$/i);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      onClick={() => onSelect(`${BASE_URL}${photo.url}`)}
+      className="relative rounded-2xl md:rounded-[2rem] overflow-hidden cursor-pointer bg-white/[0.02] break-inside-avoid shadow-xl border border-white/10 group hover:!opacity-100 group-hover/masonry:opacity-30 transition-all duration-500 min-h-[200px]"
+    >
+      {!loaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/5 animate-pulse">
+          <Loader2 size={24} className="text-white/20 animate-spin" />
+        </div>
+      )}
+      
+      {isVideo ? (
+        <video 
+          src={`${BASE_URL}${photo.url}`} 
+          className={`w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700 ease-out ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          preload="metadata"
+          onLoadedData={() => setLoaded(true)}
+        />
+      ) : (
+        <img 
+          src={`${BASE_URL}${photo.url}`} 
+          alt="Memory" 
+          className={`w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-all duration-700 ease-out ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+        />
+      )}
+      
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4 md:p-6 pointer-events-none">
+        <div className="flex flex-col gap-2 relative z-10 pointer-events-auto">
+          <div className="flex gap-2">
+            <button onClick={onToggleLike} className={`w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md border outline-none transition-all ${photo.likes?.includes(currentUser) ? 'bg-red-500/20 text-red-500 border-red-500/50' : 'bg-white/20 text-white border-white/20 hover:bg-white/40'}`}>
+              <Heart size={14} className={photo.likes?.includes(currentUser) ? 'fill-current' : ''} />
+            </button>
+            <span className="text-white/80 text-xs font-bold leading-8">{photo.likes?.length || 0}</span>
+            
+            {photo.author === currentUser && (
+              <button onClick={onDelete} className="w-8 h-8 ml-2 rounded-full flex items-center justify-center bg-white/20 text-white border border-white/20 hover:bg-red-500/80 transition-all">
+                <Trash2 size={14} />
+              </button>
+            )}
+          </div>
+          <span className="text-[10px] text-white/90 font-bold bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10 w-max">
+            {photo.author} • {new Date(photo.timestamp).toLocaleDateString()}
+          </span>
+        </div>
+        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20 pointer-events-auto hover:bg-white hover:text-black transition-colors" onClick={() => onSelect(`${BASE_URL}${photo.url}`)}>
+          <Maximize2 size={16} />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string, onClose: () => void }) {
   const [photos, setPhotos] = useState<any[]>([]);
   const [visibleCount, setVisibleCount] = useState(12);
@@ -132,51 +193,14 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
         ) : (
           <div className="columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6 group/masonry">
             {photos.slice(0, visibleCount).map((photo) => (
-              <motion.div 
-                key={photo.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                onClick={() => setSelectedPhoto(`${BASE_URL}${photo.url}`)}
-                className="relative rounded-2xl md:rounded-[2rem] overflow-hidden cursor-default bg-black/40 break-inside-avoid shadow-xl border border-white/10 group hover:!opacity-100 group-hover/masonry:opacity-30 transition-all duration-500"
-              >
-                {photo.url.match(/\.(mp4|webm|ogg|mov)$/i) ? (
-                  <video 
-                    src={`${BASE_URL}${photo.url}`} 
-                    className="w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out"
-                    preload="metadata"
-                  />
-                ) : (
-                  <img 
-                    src={`${BASE_URL}${photo.url}`} 
-                    alt="Memory" 
-                    className="w-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-700 ease-out"
-                    loading="lazy"
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4 md:p-6 pointer-events-none">
-                  <div className="flex flex-col gap-2 relative z-10 pointer-events-auto">
-                    <div className="flex gap-2">
-                      <button onClick={(e) => handleToggleLike(e, photo.id)} className={`w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md border outline-none transition-all ${photo.likes?.includes(currentUser) ? 'bg-red-500/20 text-red-500 border-red-500/50' : 'bg-white/20 text-white border-white/20 hover:bg-white/40'}`}>
-                        <Heart size={14} className={photo.likes?.includes(currentUser) ? 'fill-current' : ''} />
-                      </button>
-                      <span className="text-white/80 text-xs font-bold leading-8">{photo.likes?.length || 0}</span>
-                      
-                      {photo.author === currentUser && (
-                        <button onClick={(e) => handleDelete(e, photo.id)} className="w-8 h-8 ml-2 rounded-full flex items-center justify-center bg-white/20 text-white border border-white/20 hover:bg-red-500/80 transition-all">
-                          <Trash2 size={14} />
-                        </button>
-                      )}
-                    </div>
-                    <span className="text-[10px] text-white/90 font-bold bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10 w-max">
-                      {photo.author} • {new Date(photo.timestamp).toLocaleDateString()}
-                    </span>
-                  </div>
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20 pointer-events-auto hover:bg-white hover:text-black transition-colors" onClick={() => setSelectedPhoto(`${BASE_URL}${photo.url}`)}>
-                    <Maximize2 size={16} />
-                  </div>
-                </div>
-              </motion.div>
+              <MediaItem 
+                key={photo.id} 
+                photo={photo} 
+                currentUser={currentUser} 
+                onToggleLike={(e: React.MouseEvent) => handleToggleLike(e, photo.id)} 
+                onDelete={(e: React.MouseEvent) => handleDelete(e, photo.id)} 
+                onSelect={setSelectedPhoto} 
+              />
             ))}
           </div>
         )}
