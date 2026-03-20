@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Upload, X, Loader2, Maximize2, Heart, Trash2 } from 'lucide-react';
 import { fetchPhotos, uploadPhotos, deletePhoto, togglePhotoLike, BASE_URL } from '../lib/api';
 import { compressImage } from '../lib/imageCompression';
@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string, onClose: () => void }) {
   const [photos, setPhotos] = useState<any[]>([]);
+  const [visibleCount, setVisibleCount] = useState(12);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
@@ -21,6 +22,15 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
   useEffect(() => {
     loadPhotos();
   }, [tripId]);
+
+  const handleScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight * 1.5) {
+      if (visibleCount < photos.length) {
+        setVisibleCount(prev => prev + 12);
+      }
+    }
+  }, [visibleCount, photos.length]);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -76,12 +86,13 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
       animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
       exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
       transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-      className="fixed inset-0 z-[110] bg-[#050a06]/95 backdrop-blur-3xl overflow-y-auto"
+      className={`fixed inset-0 z-[110] bg-[#050a06]/95 backdrop-blur-3xl ${selectedPhoto ? 'overflow-hidden' : 'overflow-y-auto'}`}
       style={{ scrollbarWidth: 'none' }}
+      onScroll={handleScroll}
     >
       <div className="sticky top-0 z-[120] flex justify-between items-center p-6 md:p-10 bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
         <h2 className="text-2xl md:text-4xl font-black text-white pointer-events-auto drop-shadow-lg tracking-tight">
-          Ký Ức & <span className="text-[var(--accent)]">Cảnh Sắc</span>
+          Khoảnh Khắc & <span className="text-[var(--accent)]">Kỷ Niệm</span>
         </h2>
         <div className="flex items-center gap-2 md:gap-4 pointer-events-auto">
           <input 
@@ -120,7 +131,7 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
           </div>
         ) : (
           <div className="columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6 group/masonry">
-            {photos.map((photo) => (
+            {photos.slice(0, visibleCount).map((photo) => (
               <motion.div 
                 key={photo.id}
                 initial={{ opacity: 0, y: 20 }}
