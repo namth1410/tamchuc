@@ -3,6 +3,7 @@ import { Upload, X, Loader2, Maximize2, Heart, Trash2 } from 'lucide-react';
 import { fetchPhotos, uploadPhotos, deletePhoto, togglePhotoLike, BASE_URL } from '../lib/api';
 import { compressImage } from '../lib/imageCompression';
 import { motion, AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
 
 const MediaItem = ({ photo, currentUser, onToggleLike, onDelete, onSelect }: any) => {
   const [loaded, setLoaded] = useState(false);
@@ -207,7 +208,8 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
       </div>
 
       {/* Lightbox / Immersive View */}
-      <AnimatePresence>
+      {createPortal(
+        <AnimatePresence>
         {selectedPhoto && (
           <motion.div 
             initial={{ opacity: 0 }}
@@ -245,7 +247,9 @@ export default function PhotoGalleryModal({ tripId, onClose }: { tripId: string,
             )}
           </motion.div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </motion.div>
   );
 }
