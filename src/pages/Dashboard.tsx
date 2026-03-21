@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { fetchTrips, BASE_URL } from '../lib/api';
 import { Plane, Calendar, ArrowRight, BookOpen, Plus, PartyPopper, CalendarDays } from 'lucide-react';
@@ -109,6 +110,11 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#0a0f0b] text-white">
+      <Helmet>
+        <title>Sổ Tay Kỷ Niệm - Nhóm Hảo Hán</title>
+        <meta name="description" content="Chào mừng các đại ca đến với kỳ nghỉ và kỷ niệm tuyệt vời của Nhóm Hảo Hán. Nơi lưu giữ những hành trình đáng nhớ." />
+        <meta property="og:image" content="/images/mcc_ripe_8k.png" />
+      </Helmet>
       {/* Navbar Mộc */}
       <nav className="fixed w-full z-50 px-8 py-6 backdrop-blur-md border-b border-white/5">
         <div className="container mx-auto flex items-center gap-4">

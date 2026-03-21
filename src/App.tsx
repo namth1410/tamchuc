@@ -14,7 +14,6 @@ function App() {
         {/* Legacy hardcoded route preserved here */}
         <Route path="/trips/mu-cang-chai" element={<MuCangChaiTrip />} />
         <Route path="/trips/tam-chuc-legacy" element={<TamChucTrip />} />
-        <Route path="/trips/mu-cang-chai" element={<MuCangChaiTrip />} />
         {/* Dynamic trip details */}
         <Route path="/trips/:id" element={<TripDetails />} />
       </Routes>

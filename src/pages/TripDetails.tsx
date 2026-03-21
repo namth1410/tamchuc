@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { fetchTripById } from '../lib/api';
+import { Helmet } from 'react-helmet-async';
+import { fetchTripById, BASE_URL } from '../lib/api';
 import { ArrowLeft } from 'lucide-react';
 import TripDock from '../components/TripDock';
 
@@ -41,6 +42,11 @@ export default function TripDetails() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-dark)] text-white transition-colors duration-1000">
+      <Helmet>
+        <title>{trip.title} | Nhóm Hảo Hán</title>
+        <meta name="description" content={`Hành trình lưu bút: ${trip.title} - Nhóm Hảo Hán`} />
+        {trip.coverUrl && <meta property="og:image" content={`${BASE_URL}${trip.coverUrl}`} />}
+      </Helmet>
       <nav className="fixed w-full z-50 px-6 py-4 backdrop-blur-md border-b border-white/5">
         <Link to="/" className="inline-flex items-center gap-3 text-white/70 hover:text-white transition-colors font-semibold group">
           <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-[var(--accent)] group-hover:text-black group-hover:border-[var(--accent)] transition-all">

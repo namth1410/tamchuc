@@ -4,6 +4,7 @@ import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { isbot } from 'isbot';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,7 +15,19 @@ const PORT = 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', (req, res, next) => {
+  // Fix Safari/iOS video playback issue: Prevent Express from returning 304 Not Modified
+  // which breaks Range requests by stripping caching headers for video files.
+  if (req.path.match(/\.(mp4|mov|webm)$/i)) {
+    delete req.headers['if-none-match'];
+    delete req.headers['if-modified-since'];
+  }
+  next();
+}, express.static(path.join(__dirname, 'uploads'), {
+  setHeaders: (res, path) => {
+    res.setHeader('Accept-Ranges', 'bytes');
+  }
+}));
 
 // SSE Realtime Clients Tracking
 const chatClients = {};
@@ -268,14 +281,102 @@ app.post('/api/trips/:id/photos/:photoId/like', (req, res) => {
   res.json(photo);
 });
 
+// API: robots.txt
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send(`User-agent: *\nAllow: /\n\nSitemap: http://${req.get('host')}/sitemap.xml`);
+});
+
+// API: sitemap.xml
+app.get('/sitemap.xml', (req, res) => {
+  const db = readDB();
+  const host = req.get('host');
+  const protocol = req.protocol;
+  const baseUrl = `${protocol}://${host}`;
+  
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+  xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  
+  const today = new Date().toISOString().split('T')[0];
+
+  // Home
+  xml += `  <url>\n    <loc>${baseUrl}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n`;
+  // Legacy
+  xml += `  <url>\n    <loc>${baseUrl}/trips/mu-cang-chai</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
+  xml += `  <url>\n    <loc>${baseUrl}/trips/tam-chuc-legacy</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
+  
+  // Dynamic trips
+  db.trips.forEach(trip => {
+    if (trip.id === 'mu-cang-chai') return; 
+    xml += `  <url>\n    <loc>${baseUrl}/trips/${trip.id}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
+  });
+  
+  xml += `</urlset>`;
+  
+  res.type('application/xml');
+  res.send(xml);
+});
+
 // --- PHỤC VỤ STATIC FRONTEND TRONG MÔI TRƯỜNG PRODUCTION ---
 const distPath = path.join(__dirname, 'dist');
+let indexHtmlTemplate = '';
+if (fs.existsSync(path.join(distPath, 'index.html'))) {
+  indexHtmlTemplate = fs.readFileSync(path.join(distPath, 'index.html'), 'utf-8');
+}
+
 if (fs.existsSync(distPath)) {
   console.log("Production mode: Phục vụ Frontend từ thư mục /dist");
-  app.use(express.static(distPath));
+  app.use(express.static(distPath, { index: false }));
   
   // Mọi request không trúng API sẽ được gửi về React index.html để xử lý Client-side Routing
   app.use((req, res) => {
+    const userAgent = req.headers['user-agent'] || '';
+    if (isbot(userAgent)) {
+      let html = indexHtmlTemplate;
+      let title = 'Sổ Tay Kỷ Niệm - Nhóm Hảo Hán';
+      let description = 'Chào mừng các đại ca đến với kỷ niệm của Nhóm Hảo Hán. Nơi lưu giữ những hành trình tuyệt vời.';
+      let ogImage = '/images/mcc_ripe_8k.png';
+      
+      const db = readDB();
+      
+      if (req.path.startsWith('/trips/')) {
+        const id = req.path.split('/')[2];
+        if (id === 'mu-cang-chai') {
+          title = 'Mù Cang Chải 2026 - Tuyệt tác miền cao | Nhóm Hảo Hán';
+          description = 'Khám phá cung đường đèo hùng vĩ Mù Cang Chải 2026.';
+          ogImage = '/images/mcc_ripe_8k.png';
+        } else if (id === 'tam-chuc-legacy') {
+          title = 'Tam Chúc 2026 - Hành trình tĩnh lặng | Nhóm Hảo Hán';
+          description = 'Hành trình khám phá Tam Chúc bình yên.';
+          ogImage = '/images/tam_chuc.png';
+        } else {
+          // Dynamic trip
+          const trip = db.trips.find(t => t.id === id);
+          if (!trip) {
+            return res.status(404).send('Not Found 404');
+          }
+          title = `${trip.title} | Nhóm Hảo Hán`;
+          description = `Hành trình lưu bút: ${trip.title}`;
+          ogImage = trip.coverUrl || '/images/mcc_ripe_8k.png';
+        }
+      }
+
+      const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+      const host = req.headers.host;
+      const fullUrl = `${protocol}://${host}${req.originalUrl}`;
+
+      html = html.replace(/<title>.*?<\/title>/i, `<title>${title}</title>`)
+                 .replace(/<meta[^>]*name=["']?description["']?[^>]*>/i, `<meta name="description" content="${description}" />`)
+                 .replace(/<meta[^>]*property=["']?og:title["']?[^>]*>/i, `<meta property="og:title" content="${title}" />`)
+                 .replace(/<meta[^>]*property=["']?og:description["']?[^>]*>/i, `<meta property="og:description" content="${description}" />`)
+                 .replace(/<meta[^>]*property=["']?og:image["']?[^>]*>/i, `<meta property="og:image" content="${ogImage}" />`);
+
+      const extraMeta = `\n    <meta property="og:url" content="${fullUrl}" />\n    <link rel="canonical" href="${fullUrl}" />\n  </head>`;
+      html = html.replace(/<\/head>/i, extraMeta);
+
+      return res.send(html);
+    }
+
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }

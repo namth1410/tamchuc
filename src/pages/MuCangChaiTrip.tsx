@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from 'react-helmet-async';
 import { Share2, ArrowRight, X, LayoutGrid, Columns2, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import SeasonSlider from "../components/SeasonSlider";
@@ -98,6 +99,11 @@ function MuCangChaiTrip() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-dark)] text-white selection:bg-[var(--accent)]/40 selection:text-black transition-colors duration-1000">
+      <Helmet>
+        <title>Mù Cang Chải 2026 - Tuyệt tác miền cao | Nhóm Hảo Hán</title>
+        <meta name="description" content="Khám phá những cung đường đèo hùng vĩ và ruộng bậc thang Mù Cang Chải 2026 cùng Nhóm Hảo Hán." />
+        <meta property="og:image" content="/images/mcc_ripe_8k.png" />
+      </Helmet>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4 md:py-6 pointer-events-none">
         <div className="container flex justify-between items-center pointer-events-auto">
