@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3333;
+const PORT = 3000;
 
 // Middleware
 app.use(cors());
@@ -95,12 +95,12 @@ app.post('/api/trips', upload.single('cover'), (req, res) => {
     bg: bg || '#0a0f0b',
     coverUrl
   };
-  
+
   db.trips.push(newTrip);
   // Initialize nested arrays for the new trip
   db.messages[id] = [];
   db.photos[id] = [];
-  
+
   writeDB(db);
   res.json(newTrip);
 });
@@ -122,14 +122,14 @@ app.get('/api/trips/:id/messages', (req, res) => {
 // API: Listen for REALTIME messages (Server-Sent Events)
 app.get('/api/trips/:id/messages/stream', (req, res) => {
   const { id } = req.params;
-  
+
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
-  
+
   if (!chatClients[id]) chatClients[id] = [];
   chatClients[id].push(res);
-  
+
   req.on('close', () => {
     chatClients[id] = chatClients[id].filter(client => client !== res);
   });
@@ -147,24 +147,24 @@ app.post('/api/trips/:id/messages', (req, res) => {
   if (!db.messages[id]) {
     db.messages[id] = [];
   }
-  
+
   const newMessage = {
     id: Date.now().toString(),
     author,
     content,
     timestamp: new Date().toISOString()
   };
-  
+
   db.messages[id].push(newMessage);
   writeDB(db);
-  
+
   // Real-time broadcast to all connected clients
   if (chatClients[id]) {
     chatClients[id].forEach(client => {
       client.write(`data: ${JSON.stringify({ type: 'NEW_MESSAGE', data: newMessage })}\n\n`);
     });
   }
-  
+
   res.json(newMessage);
 });
 
@@ -173,25 +173,25 @@ app.delete('/api/trips/:id/messages/:msgId', (req, res) => {
   const { id, msgId } = req.params;
   const { author } = req.body;
   const db = readDB();
-  
+
   if (!db.messages[id]) return res.status(404).json({ error: 'Trip not found' });
-  
+
   const msgIndex = db.messages[id].findIndex(m => m.id === msgId);
   if (msgIndex === -1) return res.status(404).json({ error: 'Message not found' });
-  
+
   const msg = db.messages[id][msgIndex];
   if (msg.author !== author) return res.status(403).json({ error: 'Unauthorized to delete this message' });
-  
+
   db.messages[id].splice(msgIndex, 1);
   writeDB(db);
-  
+
   // Broadcast deletion via SSE
   if (chatClients[id]) {
     chatClients[id].forEach(client => {
       client.write(`data: ${JSON.stringify({ type: 'DELETE_MESSAGE', messageId: msgId })}\n\n`);
     });
   }
-  
+
   res.json({ success: true, messageId: msgId });
 });
 
@@ -213,7 +213,7 @@ app.post('/api/trips/:id/photos', upload.array('photos', 50), (req, res) => {
   if (!db.photos[id]) {
     db.photos[id] = [];
   }
-  
+
   const newPhotos = req.files.map((file, index) => ({
     id: Date.now().toString() + '-' + index,
     url: `/uploads/${file.filename}`,
@@ -222,11 +222,11 @@ app.post('/api/trips/:id/photos', upload.array('photos', 50), (req, res) => {
     likes: [],
     timestamp: new Date().toISOString()
   }));
-  
+
   // Prepend new photos so they appear first
   db.photos[id] = [...newPhotos, ...db.photos[id]];
   writeDB(db);
-  
+
   res.json(newPhotos);
 });
 
@@ -235,24 +235,24 @@ app.delete('/api/trips/:id/photos/:photoId', (req, res) => {
   const { id, photoId } = req.params;
   const { author } = req.body;
   const db = readDB();
-  
+
   if (!db.photos[id]) return res.status(404).json({ error: 'Trip not found' });
-  
+
   const photoIndex = db.photos[id].findIndex(p => p.id === photoId);
   if (photoIndex === -1) return res.status(404).json({ error: 'Photo not found' });
-  
+
   const photo = db.photos[id][photoIndex];
   if (photo.author !== author) return res.status(403).json({ error: 'Unauthorized to delete this photo' });
-  
+
   // Physically delete file
   const filePath = path.join(__dirname, photo.url.replace('/uploads/', 'uploads/'));
   if (fs.existsSync(filePath)) {
     try { fs.unlinkSync(filePath); } catch (e) { console.error("Del err", e); }
   }
-  
+
   db.photos[id].splice(photoIndex, 1);
   writeDB(db);
-  
+
   res.json({ success: true, photoId });
 });
 
@@ -264,19 +264,19 @@ app.post('/api/trips/:id/photos/:photoId/like', (req, res) => {
 
   const db = readDB();
   if (!db.photos[id]) return res.status(404).json({ error: 'Trip not found' });
-  
+
   const photo = db.photos[id].find(p => p.id === photoId);
   if (!photo) return res.status(404).json({ error: 'Photo not found' });
-  
+
   if (!photo.likes) photo.likes = [];
-  
+
   const likeIndex = photo.likes.indexOf(author);
   if (likeIndex > -1) {
     photo.likes.splice(likeIndex, 1); // Unlike
   } else {
     photo.likes.push(author); // Like
   }
-  
+
   writeDB(db);
   res.json(photo);
 });
@@ -293,10 +293,10 @@ app.get('/sitemap.xml', (req, res) => {
   const host = req.get('host');
   const protocol = req.protocol;
   const baseUrl = `${protocol}://${host}`;
-  
+
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
   xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-  
+
   const today = new Date().toISOString().split('T')[0];
 
   // Home
@@ -305,15 +305,15 @@ app.get('/sitemap.xml', (req, res) => {
   xml += `  <url>\n    <loc>${baseUrl}/trips/mu-cang-chai</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
   xml += `  <url>\n    <loc>${baseUrl}/trips/tam-chuc-legacy</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
   xml += `  <url>\n    <loc>${baseUrl}/trips/moc-chau</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
-  
+
   // Dynamic trips
   db.trips.forEach(trip => {
-    if (trip.id === 'mu-cang-chai' || trip.id === 'moc-chau') return; 
+    if (trip.id === 'mu-cang-chai' || trip.id === 'moc-chau') return;
     xml += `  <url>\n    <loc>${baseUrl}/trips/${trip.id}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
   });
-  
+
   xml += `</urlset>`;
-  
+
   res.type('application/xml');
   res.send(xml);
 });
@@ -328,7 +328,7 @@ if (fs.existsSync(path.join(distPath, 'index.html'))) {
 if (fs.existsSync(distPath)) {
   console.log("Production mode: Phục vụ Frontend từ thư mục /dist");
   app.use(express.static(distPath, { index: false }));
-  
+
   // Mọi request không trúng API sẽ được gửi về React index.html để xử lý Client-side Routing
   app.use((req, res) => {
     const userAgent = req.headers['user-agent'] || '';
@@ -337,9 +337,9 @@ if (fs.existsSync(distPath)) {
       let title = 'Sổ Tay Kỷ Niệm - Nhóm Hảo Hán';
       let description = 'Chào mừng các đại ca đến với kỷ niệm của Nhóm Hảo Hán. Nơi lưu giữ những hành trình tuyệt vời.';
       let ogImage = '/images/mcc_ripe_8k.png';
-      
+
       const db = readDB();
-      
+
       if (req.path.startsWith('/trips/')) {
         const id = req.path.split('/')[2];
         if (id === 'mu-cang-chai') {
@@ -371,10 +371,10 @@ if (fs.existsSync(distPath)) {
       const fullUrl = `${protocol}://${host}${req.originalUrl}`;
 
       html = html.replace(/<title>.*?<\/title>/i, `<title>${title}</title>`)
-                 .replace(/<meta[^>]*name=["']?description["']?[^>]*>/i, `<meta name="description" content="${description}" />`)
-                 .replace(/<meta[^>]*property=["']?og:title["']?[^>]*>/i, `<meta property="og:title" content="${title}" />`)
-                 .replace(/<meta[^>]*property=["']?og:description["']?[^>]*>/i, `<meta property="og:description" content="${description}" />`)
-                 .replace(/<meta[^>]*property=["']?og:image["']?[^>]*>/i, `<meta property="og:image" content="${ogImage}" />`);
+        .replace(/<meta[^>]*name=["']?description["']?[^>]*>/i, `<meta name="description" content="${description}" />`)
+        .replace(/<meta[^>]*property=["']?og:title["']?[^>]*>/i, `<meta property="og:title" content="${title}" />`)
+        .replace(/<meta[^>]*property=["']?og:description["']?[^>]*>/i, `<meta property="og:description" content="${description}" />`)
+        .replace(/<meta[^>]*property=["']?og:image["']?[^>]*>/i, `<meta property="og:image" content="${ogImage}" />`);
 
       const extraMeta = `\n    <meta property="og:url" content="${fullUrl}" />\n    <link rel="canonical" href="${fullUrl}" />\n  </head>`;
       html = html.replace(/<\/head>/i, extraMeta);
