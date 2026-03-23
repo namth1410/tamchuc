@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Helmet } from 'react-helmet-async';
 import { Share2, ArrowLeft, MapPin, Clock, Navigation } from "lucide-react";
