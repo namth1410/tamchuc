@@ -1,4 +1,4 @@
-export const BASE_URL = import.meta.env.PROD ? '' : 'http://localhost:3000';
+export const BASE_URL = import.meta.env.PROD ? '' : 'http://localhost:3333';
 export const API_URL = `${BASE_URL}/api`;
 
 export const fetchTrips = () => fetch(`${API_URL}/trips`).then(res => res.json());

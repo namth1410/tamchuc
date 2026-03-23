@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3333;
 
 // Middleware
 app.use(cors());
@@ -304,10 +304,11 @@ app.get('/sitemap.xml', (req, res) => {
   // Legacy
   xml += `  <url>\n    <loc>${baseUrl}/trips/mu-cang-chai</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
   xml += `  <url>\n    <loc>${baseUrl}/trips/tam-chuc-legacy</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
+  xml += `  <url>\n    <loc>${baseUrl}/trips/moc-chau</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
   
   // Dynamic trips
   db.trips.forEach(trip => {
-    if (trip.id === 'mu-cang-chai') return; 
+    if (trip.id === 'mu-cang-chai' || trip.id === 'moc-chau') return; 
     xml += `  <url>\n    <loc>${baseUrl}/trips/${trip.id}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
   });
   
@@ -349,6 +350,10 @@ if (fs.existsSync(distPath)) {
           title = 'Tam Chúc 2026 - Hành trình tĩnh lặng | Nhóm Hảo Hán';
           description = 'Hành trình khám phá Tam Chúc bình yên.';
           ogImage = '/images/tam_chuc.png';
+        } else if (id === 'moc-chau') {
+          title = 'Mộc Châu Day Trip - Hành trình Trà xanh | Nhóm Hảo Hán';
+          description = 'Chuyến đi Mộc Châu trong ngày với Đèo Đá Trắng và Đồi chè.';
+          ogImage = 'https://images.unsplash.com/photo-1559599268-07bd629abce9?q=80&w=2000&auto=format&fit=crop';
         } else {
           // Dynamic trip
           const trip = db.trips.find(t => t.id === id);

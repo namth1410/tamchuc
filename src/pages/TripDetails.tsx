@@ -63,7 +63,7 @@ export default function TripDetails() {
             {trip.title}
           </motion.h1>
           <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-[var(--accent)] font-bold text-sm tracking-widest uppercase">
-            Hành trình lưu bút
+            Hành trình lưu bút - Nhóm Hảo Hán
           </div>
         </div>
       </header>

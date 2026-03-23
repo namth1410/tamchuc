@@ -186,7 +186,7 @@ function MuCangChaiTrip() {
             >
               Trải nghiệm những cung đường đèo hùng vĩ nhất Việt Nam, nơi những
               thửa ruộng bậc thang kể câu chuyện về sức sống mãnh liệt của con
-              người vùng cao.
+              người vùng cao. Hành trình ghi đậm dấu ấn của **Nhóm Hảo Hán**.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -454,7 +454,7 @@ function MuCangChaiTrip() {
           </div>
           <p className="text-white/30 text-xs max-w-xl mx-auto leading-relaxed mb-12 italic">
             "Ruộng bậc thang Mù Cang Chải là tuyệt tác nghệ thuật từ bàn tay và
-            khối óc của người dân vùng cao."
+            khối óc của người dân vùng cao. Một kỷ niệm khó quên cháy mãi trong Sổ Tay Kỷ Niệm Nhóm Hảo Hán."
           </p>
           <div className="h-[1px] w-40 bg-white/10 mx-auto mb-12" />
         </div>

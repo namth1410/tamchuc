@@ -81,7 +81,7 @@ const Hero = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="inline-block bg-gradient-to-r from-gold-500/20 to-gold-600/20 text-gold-400 font-bold px-4 py-1.5 md:px-5 md:py-2 rounded-full text-xs md:text-sm tracking-[0.2em] uppercase mb-6 border border-gold-500/30 shadow-[0_0_15px_rgba(234,179,8,0.2)] backdrop-blur-md"
                     >
-                        ✨ Chuyến Đi Chữa Lành ✨
+                        ✨ Chuyến Đi Chữa Lành - Nhóm Hảo Hán ✨
                     </motion.div>
 
                     <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white mb-6 md:mb-8 leading-[1.1]">

@@ -75,6 +75,9 @@ const getTripCover = (trip: Trip) => {
   if (title.includes('tam chúc') || trip.id === 'tam-chuc' || trip.id === 'tam-chuc-legacy') {
     return '/images/tam_chuc.png';
   }
+  if (trip.id === 'moc-chau') {
+    return 'https://images.unsplash.com/photo-1559599268-07bd629abce9?q=80&w=2000&auto=format&fit=crop';
+  }
   if (title.includes('hà giang') || title.includes('mã pì lèng')) {
     return '/images/ma_pi_leng.png';
   }
@@ -220,7 +223,7 @@ export default function Dashboard() {
                   className="h-full"
                 >
                   <Link
-                    to={trip.id === 'mu-cang-chai' ? '/trips/mu-cang-chai' : trip.id === 'tam-chuc' ? '/trips/tam-chuc-legacy' : `/trips/${trip.id}`}
+                    to={trip.id === 'mu-cang-chai' ? '/trips/mu-cang-chai' : trip.id === 'tam-chuc' ? '/trips/tam-chuc-legacy' : trip.id === 'moc-chau' ? '/trips/moc-chau' : `/trips/${trip.id}`}
                     className="block group relative h-full"
                   >
                     {/* Glowing effect shadow */}
