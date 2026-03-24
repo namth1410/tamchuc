@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { fetchTrips, BASE_URL } from '../lib/api';
-import { Plane, Calendar, ArrowRight, BookOpen, Plus, PartyPopper, CalendarDays } from 'lucide-react';
+import { Plane, Calendar, ArrowRight, BookOpen, Plus, PartyPopper, CalendarDays, Lock, Unlock, Edit2 } from 'lucide-react';
 import CreateTripModal from '../components/CreateTripModal';
+import AdminAuthModal from '../components/AdminAuthModal';
 
 export interface Trip {
   id: string;
@@ -76,7 +77,7 @@ const getTripCover = (trip: Trip) => {
     return '/images/tam_chuc.png';
   }
   if (trip.id === 'moc-chau') {
-    return 'https://images.unsplash.com/photo-1559599268-07bd629abce9?q=80&w=2000&auto=format&fit=crop';
+    return '/images/mc_cover_landscape.png';
   }
   if (title.includes('hà giang') || title.includes('mã pì lèng')) {
     return '/images/ma_pi_leng.png';
@@ -89,7 +90,11 @@ const getTripCover = (trip: Trip) => {
 export default function Dashboard() {
   const [trips, setTrips] = useState<Trip[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isCreating, setIsCreating] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTrip, setSelectedTrip] = useState<Trip | undefined>(undefined);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminPass, setAdminPass] = useState('');
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const loadAllTrips = () => {
     fetchTrips()
@@ -108,8 +113,24 @@ export default function Dashboard() {
     document.documentElement.style.setProperty('--trip-primary', '#ffcc00');
     document.documentElement.style.setProperty('--trip-bg', '#0a0f0b');
 
+    const savedPass = sessionStorage.getItem('adminPass');
+    if (savedPass === '01664157092a') {
+      setIsAdmin(true);
+      setAdminPass(savedPass);
+    }
+
     loadAllTrips();
   }, []);
+
+  const toggleAdmin = () => {
+    if (isAdmin) {
+      sessionStorage.removeItem('adminPass');
+      setIsAdmin(false);
+      setAdminPass('');
+    } else {
+      setIsAuthModalOpen(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#0a0f0b] text-white">
@@ -128,6 +149,9 @@ export default function Dashboard() {
             <h1 className="text-2xl font-black tracking-tight leading-none uppercase">Sổ Tay Nhóm Hảo Hán</h1>
             <span className="text-white/40 text-xs font-bold tracking-[0.2em] uppercase">"Cảm ơn vua Tuyển!"</span>
           </div>
+          <button onClick={toggleAdmin} className="ml-auto p-2 rounded-full hover:bg-white/10 transition-colors text-white/50 hover:text-white" title="Chế độ Quản trị">
+            {isAdmin ? <Unlock size={20} className="text-green-400" /> : <Lock size={20} />}
+          </button>
         </div>
       </nav>
 
@@ -226,6 +250,21 @@ export default function Dashboard() {
                     to={trip.id === 'mu-cang-chai' ? '/trips/mu-cang-chai' : trip.id === 'tam-chuc' ? '/trips/tam-chuc-legacy' : trip.id === 'moc-chau' ? '/trips/moc-chau' : `/trips/${trip.id}`}
                     className="block group relative h-full"
                   >
+                    {isAdmin && (
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setSelectedTrip(trip);
+                          setIsModalOpen(true);
+                        }}
+                        className="absolute top-4 right-4 z-[60] p-3 bg-black/60 hover:bg-[var(--trip-primary)] hover:text-black text-white rounded-full backdrop-blur-md transition-all shadow-xl opacity-0 group-hover:opacity-100"
+                        title="Sửa chuyến đi"
+                      >
+                        <Edit2 size={16} />
+                      </button>
+                    )}
+
                     {/* Glowing effect shadow */}
                     <div
                       className={`absolute -inset-0.5 rounded-[2rem] blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-700 ${trip.coverUrl ? '!opacity-0' : ''}`}
@@ -287,7 +326,10 @@ export default function Dashboard() {
                 className="h-full"
               >
                 <button
-                  onClick={() => setIsCreating(true)}
+                  onClick={() => {
+                    setSelectedTrip(undefined);
+                    setIsModalOpen(true);
+                  }}
                   className="w-full h-full min-h-[350px] rounded-[2rem] border-2 border-dashed border-white/20 hover:border-[var(--trip-primary)] hover:bg-white/[0.02] flex flex-col items-center justify-center gap-4 text-white/50 hover:text-[var(--trip-primary)] transition-all group"
                 >
                   <div className="w-16 h-16 rounded-full bg-white/5 group-hover:bg-[var(--trip-primary)]/20 flex items-center justify-center transition-colors shadow-lg">
@@ -302,11 +344,24 @@ export default function Dashboard() {
       </main>
 
       <CreateTripModal
-        isOpen={isCreating}
-        onClose={() => setIsCreating(false)}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        tripToEdit={selectedTrip}
+        adminPass={adminPass}
         onSuccess={() => {
-          setIsCreating(false);
+          setIsModalOpen(false);
           loadAllTrips();
+        }}
+      />
+
+      <AdminAuthModal 
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onSuccess={(pass) => {
+          sessionStorage.setItem('adminPass', pass);
+          setIsAdmin(true);
+          setAdminPass(pass);
+          setIsAuthModalOpen(false);
         }}
       />
     </div>

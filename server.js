@@ -113,6 +113,46 @@ app.get('/api/trips/:id', (req, res) => {
   else res.status(404).json({ error: 'Trip not found' });
 });
 
+// Middleware bảo mật đơn giản: Kiểm tra mật khẩu trong Header x-admin-pass
+const requireAdminPass = (req, res, next) => {
+  const adminPass = req.headers['x-admin-pass'];
+  // Mật khẩu cứng ở đây: "haohan123" (Bạn có thể đổi nếu muốn)
+  if (adminPass === 'haohan123') {
+    next();
+  } else {
+    res.status(401).json({ error: 'Sai mật khẩu Admin!' });
+  }
+};
+
+// API: Cập nhật dữ liệu chuyến đi (PUT) - Cần truyền Header x-admin-pass
+app.put('/api/trips/:id', upload.single('cover'), requireAdminPass, (req, res) => {
+  const db = readDB();
+  const tripIndex = db.trips.findIndex(t => t.id === req.params.id);
+  
+  if (tripIndex === -1) {
+    return res.status(404).json({ error: 'Trip not found' });
+  }
+
+  // Cập nhật các trường văn bản nếu có gửi lên
+  const { title, date, color, bg, coverUrl } = req.body;
+  
+  if (title) db.trips[tripIndex].title = title;
+  if (date) db.trips[tripIndex].date = date;
+  if (color) db.trips[tripIndex].color = color;
+  if (bg) db.trips[tripIndex].bg = bg;
+  
+  // Xử lý ảnh Cover: Nếu có file upload lên thì ưu tiên file, nếu không thì xem có truyền coverUrl (link tĩnh) không
+  if (req.file) {
+    db.trips[tripIndex].coverUrl = `/uploads/${req.file.filename}`;
+  } else if (coverUrl) {
+    db.trips[tripIndex].coverUrl = coverUrl;
+  }
+  
+  writeDB(db);
+  res.json(db.trips[tripIndex]);
+});
+
+
 // API: Get messages for a trip
 app.get('/api/trips/:id/messages', (req, res) => {
   const db = readDB();

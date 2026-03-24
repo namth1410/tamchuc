@@ -11,21 +11,21 @@ const timelineData = [
     title: "Khởi hành từ Hà Nội",
     description: "Tập trung tại 591 Nguyễn Trãi. Đổ đầy bình xăng, buộc chặt đồ đạc, hít một hơi thật sâu và bắt đầu hành trình trốn phố về rừng.",
     icon: Navigation,
-    image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=2000&auto=format&fit=crop"
+    image: "/images/mc_hanoi_start.png"
   },
   {
     time: "09:00",
     title: "Check-in Đèo Đá Trắng",
     description: "Dừng chân tại Thung Khe sương mù giăng lối. Chụp vài bô ảnh ngầu đét cùng xế cưng, ăn vội bắp ngô nướng và ống cơm lam lấp đầy chiếc bụng đói.",
     icon: MapPin,
-    image: "https://images.unsplash.com/photo-1542642598-a5732acb9d56?q=80&w=2000&auto=format&fit=crop"
+    image: "/images/mc_thung_khe.png"
   },
   {
     time: "11:30",
     title: "Đặt chân tới Cao Nguyên",
     description: "Khí hậu mát mẻ đón chào. Bỏ qua những ồn ào khói bụi, chỉ còn lại màu xanh thẳm của mây trời và những đồi chè bát ngát.",
     icon: MapPin,
-    image: "https://images.unsplash.com/photo-1559599268-07bd629abce9?q=80&w=2000&auto=format&fit=crop"
+    image: "/images/mc_tea_hills.png"
   },
   {
     time: "12:00",
@@ -38,14 +38,14 @@ const timelineData = [
     title: "Vi Vu Khám Phá",
     description: "Lượn lờ Rừng thông Bản Áng tĩnh lặng hay Đồi chè Trái tim bát ngát. Góc nào lên hình cũng là cực phẩm của tuổi trẻ.",
     icon: MapPin,
-    image: "https://images.unsplash.com/photo-1563200922-834f37803a64?q=80&w=2000&auto=format&fit=crop"
+    image: "/images/mc_pine_forest.png"
   },
   {
     time: "16:00",
     title: "Quay Đầu Về Thủ Đô",
     description: "Kiểm tra lại xe cộ, xốc lại tinh thần đổ đèo trở về Hà Nội trước khi màn sương đêm buông xuống lạnh buốt.",
     icon: Navigation,
-    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2000&auto=format&fit=crop"
+    image: "/images/mc_return_trip.png"
   }
 ];
 

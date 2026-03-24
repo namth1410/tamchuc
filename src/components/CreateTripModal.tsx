@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PlaneTakeoff, X, CheckCircle2, Upload, Trash2 } from 'lucide-react';
-import { createTrip } from '../lib/api';
+import { createTrip, updateTrip, BASE_URL } from '../lib/api';
 
-export default function CreateTripModal({ isOpen, onClose, onSuccess }: { isOpen: boolean, onClose: () => void, onSuccess: () => void }) {
+export default function CreateTripModal({ 
+  isOpen, 
+  onClose, 
+  onSuccess,
+  tripToEdit,
+  adminPass
+}: { 
+  isOpen: boolean, 
+  onClose: () => void, 
+  onSuccess: () => void,
+  tripToEdit?: any,
+  adminPass?: string
+}) {
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [theme, setTheme] = useState('yellow');
@@ -27,6 +39,28 @@ export default function CreateTripModal({ isOpen, onClose, onSuccess }: { isOpen
     { id: 'purple', name: 'Tinh Vân', color: '#c084fc', bg: '#0a0510' }
   ];
 
+  // Sync state if editing
+  React.useEffect(() => {
+    if (tripToEdit && isOpen) {
+      setTitle(tripToEdit.title || '');
+      setDate(tripToEdit.date || '');
+      const matchedTheme = THEMES.find(t => t.color.toLowerCase() === tripToEdit.color?.toLowerCase());
+      setTheme(matchedTheme ? matchedTheme.id : 'yellow');
+      
+      if (tripToEdit.coverUrl) {
+        setPreview(tripToEdit.coverUrl.startsWith('http') ? tripToEdit.coverUrl : `${BASE_URL}${tripToEdit.coverUrl}`);
+      } else {
+        setPreview(null);
+      }
+    } else if (!tripToEdit && isOpen) {
+      setTitle('');
+      setDate('');
+      setTheme('yellow');
+      setPreview(null);
+    }
+    setCoverFile(null);
+  }, [tripToEdit, isOpen]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
@@ -35,19 +69,39 @@ export default function CreateTripModal({ isOpen, onClose, onSuccess }: { isOpen
     const selectedTheme = THEMES.find(t => t.id === theme) || THEMES[0];
     
     try {
-      await createTrip({
-        title: title.trim(),
-        date: date.trim() || 'Sắp khởi hành',
-        color: selectedTheme.color,
-        bg: selectedTheme.bg
-      }, coverFile);
-      setTitle('');
-      setDate('');
-      setTheme('yellow');
-      setCoverFile(null);
-      setPreview(null);
+      if (tripToEdit && adminPass) {
+        await updateTrip(
+          tripToEdit.id,
+          {
+            title: title.trim(),
+            date: date.trim(),
+            color: selectedTheme.color,
+            bg: selectedTheme.bg,
+            // If preview was cleared by user, empty the url. Focus only on url update here.
+            coverUrl: preview ? tripToEdit.coverUrl : ""
+          },
+          coverFile,
+          adminPass
+        );
+      } else {
+        await createTrip({
+          title: title.trim(),
+          date: date.trim() || 'Sắp khởi hành',
+          color: selectedTheme.color,
+          bg: selectedTheme.bg
+        }, coverFile);
+      }
+      
+      if (!tripToEdit) {
+        setTitle('');
+        setDate('');
+        setTheme('yellow');
+        setCoverFile(null);
+        setPreview(null);
+      }
       onSuccess();
     } catch (err) {
+      alert(err instanceof Error ? err.message : 'Lỗi không xác định');
       console.error(err);
     } finally {
       setLoading(false);
@@ -76,7 +130,9 @@ export default function CreateTripModal({ isOpen, onClose, onSuccess }: { isOpen
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white shrink-0">
                   <PlaneTakeoff size={20} />
                 </div>
-                <h2 className="text-xl font-black text-white">Tạo Hành Trình Mới</h2>
+                <h2 className="text-xl font-black text-white">
+                  {tripToEdit ? 'Chỉnh Sửa Hành Trình' : 'Tạo Hành Trình Mới'}
+                </h2>
               </div>
               <button type="button" onClick={onClose} className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors text-white/50 hover:text-white shrink-0">
                 <X size={20} />
@@ -163,7 +219,7 @@ export default function CreateTripModal({ isOpen, onClose, onSuccess }: { isOpen
                   disabled={loading || !title.trim()}
                   className="w-full bg-white text-black font-black py-4 rounded-xl flex justify-center items-center gap-2 hover:scale-[1.02] transition-transform disabled:opacity-50 disabled:hover:scale-100 uppercase tracking-wider text-sm"
                 >
-                  {loading ? 'Đang khởi tạo...' : 'Lưu Vào Sổ Nhật Ký'}
+                  {loading ? 'Đang xử lý...' : (tripToEdit ? 'Cập Nhật Nhật Ký' : 'Lưu Vào Sổ Nhật Ký')}
                 </button>
               </div>
             </form>

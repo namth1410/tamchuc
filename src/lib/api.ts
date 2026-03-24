@@ -8,7 +8,7 @@ export const fetchTripById = (id: string) => fetch(`${API_URL}/trips/${id}`).the
   return res.json();
 });
 
-export const createTrip = (tripData: any, coverFile: File | null = null) => {
+export const createTrip = (tripData: any, coverFile: File | null) => {
   const formData = new FormData();
   formData.append('title', tripData.title);
   formData.append('date', tripData.date);
@@ -22,6 +22,32 @@ export const createTrip = (tripData: any, coverFile: File | null = null) => {
     method: 'POST',
     body: formData
   }).then(res => res.json());
+};
+
+export const updateTrip = (id: string, tripData: any, coverFile: File | null, adminPass: string) => {
+  const formData = new FormData();
+  if (tripData.title) formData.append('title', tripData.title);
+  if (tripData.date) formData.append('date', tripData.date);
+  if (tripData.color) formData.append('color', tripData.color);
+  if (tripData.bg) formData.append('bg', tripData.bg);
+  if (tripData.coverUrl) formData.append('coverUrl', tripData.coverUrl); // Support passing existing url if no file
+  if (coverFile) {
+    formData.append('cover', coverFile);
+  }
+
+  return fetch(`${API_URL}/trips/${id}`, {
+    method: 'PUT',
+    headers: {
+      'x-admin-pass': adminPass
+    },
+    body: formData
+  }).then(async res => {
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Failed to update trip');
+    }
+    return res.json();
+  });
 };
 
 export const fetchMessages = (tripId: string) => fetch(`${API_URL}/trips/${tripId}/messages`).then(res => res.json());
